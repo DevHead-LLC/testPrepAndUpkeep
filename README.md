@@ -29,8 +29,8 @@ You will need:
 ### Clone the repository
 
 ```bash
-git clone <YOUR-REPOSITORY-URL>
-cd <YOUR-REPOSITORY-NAME>/client
+git clone https://github.com/DevHead-LLC/testPrepAndUpkeep.git
+cd testPrepAndUpkeep/client
 ```
 
 ### Install dependencies
