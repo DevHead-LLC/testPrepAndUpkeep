@@ -32,27 +32,27 @@ test("the grader rejects each unfinished starter", () => {
   }
 });
 
-test("Move Zeroes grades the original array, with or without a return value", () => {
-  const id = "dsa-move-zeroes";
+test("Slide Zeros Back grades the original array, with or without a return value", () => {
+  const id = "dsa-slide-zeros-back";
   assertPasses(run(id, tipsByProblemId[id].solution));
-  assertPasses(run(id, `function moveZeroes(nums) {
+  assertPasses(run(id, `function slideZerosBack(values) {
     let write = 0;
-    for (let read = 0; read < nums.length; read++) {
-      if (nums[read] !== 0) {
-        [nums[write], nums[read]] = [nums[read], nums[write]];
+    for (let read = 0; read < values.length; read++) {
+      if (values[read] !== 0) {
+        [values[write], values[read]] = [values[read], values[write]];
         write++;
       }
     }
-    return nums;
+    return values;
   }`));
   const fixture = problemById[id].tests[0];
   const incorrect = [
-    "function moveZeroes(nums) { return nums.filter(n => n !== 0).concat(nums.filter(n => n === 0)); }",
-    "function moveZeroes(nums) { nums = [1,3,12,0,0]; return nums; }",
-    "function moveZeroes(nums) { let w=0; for (const n of nums) if(n!==0) nums[w++]=n; }",
-    "function moveZeroes(nums) { nums.push(0,0); }",
-    "function moveZeroes(nums) { nums.splice(0, nums.length, 12,3,1,0,0); }",
-    "function moveZeroes(nums) { nums.splice(0, nums.length, 1,3,12); }",
+    "function slideZerosBack(values) { return values.filter(n => n !== 0).concat(values.filter(n => n === 0)); }",
+    "function slideZerosBack(values) { values = [4,5,6,0,0,0]; return values; }",
+    "function slideZerosBack(values) { let w=0; for (const n of values) if(n!==0) values[w++]=n; }",
+    "function slideZerosBack(values) { values.push(0,0); }",
+    "function slideZerosBack(values) { values.splice(0, values.length, 6,5,4,0,0,0); }",
+    "function slideZerosBack(values) { values.splice(0, values.length, 4,5,6); }",
   ];
   for (const source of incorrect) {
     const result = run(id, source, [fixture]);
@@ -64,7 +64,7 @@ test("Move Zeroes grades the original array, with or without a return value", ()
 });
 
 test("permutations and top-K accept alternate order, but reject duplicates or missing results", () => {
-  for (const id of ["dsa-permutations", "dsa-top-k-largest"]) {
+  for (const id of ["dsa-all-arrangements", "dsa-k-biggest-values"]) {
     const p = problemById[id];
     const solution = tipsByProblemId[id].solution.replace(`function ${p.fnName}(`, "function reference(");
     assertPasses(run(id, `${solution}\nfunction ${p.fnName}(...args) { return reference(...args).reverse(); }`));
@@ -76,36 +76,36 @@ test("permutations and top-K accept alternate order, but reject duplicates or mi
 });
 
 test("topological grading accepts any full valid order and rejects invalid orders", () => {
-  const fixture = problemById["dsa-course-order"].tests[0];
-  assertPasses(run("dsa-course-order", "function findOrder() { return [0,2,1,3]; }", [fixture]));
+  const fixture = problemById["dsa-task-dependency-order"].tests[0];
+  assertPasses(run("dsa-task-dependency-order", "function taskOrder() { return [0,2,1,3]; }", [fixture]));
   for (const order of [[0,1,1,3], [3,2,1,0], [0,1], [0,1,2,4], [0,1,2,3,4], []]) {
-    assert(!run("dsa-course-order", `function findOrder() { return ${JSON.stringify(order)}; }`, [fixture]).results[0].pass);
+    assert(!run("dsa-task-dependency-order", `function taskOrder() { return ${JSON.stringify(order)}; }`, [fixture]).results[0].pass);
   }
-  const cycle = problemById["dsa-course-order"].tests[1];
-  assertPasses(run("dsa-course-order", "function findOrder() { return []; }", [cycle]));
-  assert(!run("dsa-course-order", "function findOrder() { return [0,1]; }", [cycle]).results[0].pass);
+  const cycle = problemById["dsa-task-dependency-order"].tests[1];
+  assertPasses(run("dsa-task-dependency-order", "function taskOrder() { return []; }", [cycle]));
+  assert(!run("dsa-task-dependency-order", "function taskOrder() { return [0,1]; }", [cycle]).results[0].pass);
 });
 
 test("list reversal rejects copied nodes, changed values, missing nodes, and cycles", () => {
-  const fixture = problemById["dsa-reverse-linked-list"].tests[0];
+  const fixture = problemById["dsa-flip-chain"].tests[0];
   const wrongSolutions = [
-    "function reverseList(head) { let out = null; while (head) { out = {val: head.val, next: out}; head = head.next; } return out; }",
-    "function reverseList(head) { const a=[]; for(let n=head;n;n=n.next) a.push(n.val); a.reverse(); for(let n=head;n;n=n.next) n.val=a.shift(); return head; }",
-    "function reverseList(head) { return head.next; }",
-    "function reverseList(head) { let prev=null, n=head; while(n) { const next=n.next; n.next=prev; prev=n; n=next; } head.next=prev; return prev; }",
+    "function flipChain(head) { let out = null; while (head) { out = {val: head.val, next: out}; head = head.next; } return out; }",
+    "function flipChain(head) { const a=[]; for(let n=head;n;n=n.next) a.push(n.val); a.reverse(); for(let n=head;n;n=n.next) n.val=a.shift(); return head; }",
+    "function flipChain(head) { return head.next; }",
+    "function flipChain(head) { let prev=null, n=head; while(n) { const next=n.next; n.next=prev; prev=n; n=next; } head.next=prev; return prev; }",
   ];
   for (const source of wrongSolutions) {
-    assert(!run("dsa-reverse-linked-list", source, [fixture]).results[0].pass);
+    assert(!run("dsa-flip-chain", source, [fixture]).results[0].pass);
   }
 });
 
 test("cycle detection uses node identity, including self-loops and duplicate values", () => {
-  assertPasses(run("dsa-linked-list-cycle", `function hasCycle(head) {
+  assertPasses(run("dsa-loop-in-chain", `function chainHasLoop(head) {
     const seen = new Set();
     while (head) { if (seen.has(head)) return true; seen.add(head); head = head.next; }
     return false;
   }`));
-  const wrong = run("dsa-linked-list-cycle", `function hasCycle(head) {
+  const wrong = run("dsa-loop-in-chain", `function chainHasLoop(head) {
     const seen = new Set();
     while (head) { if (seen.has(head.val)) return true; seen.add(head.val); head = head.next; }
     return false;
@@ -114,9 +114,9 @@ test("cycle detection uses node identity, including self-loops and duplicate val
 });
 
 test("syntax errors, missing functions, and thrown errors have usable results", () => {
-  assert(run("dsa-range-sums", "function rangeSums( {").compileError);
-  assert.match(run("dsa-range-sums", "function other() {}").compileError, /rangeSums/);
-  const thrown = run("dsa-range-sums", 'function rangeSums() { throw new Error("example failure"); }');
+  assert(run("dsa-range-total-queries", "function batchRangeTotals( {").compileError);
+  assert.match(run("dsa-range-total-queries", "function other() {}").compileError, /batchRangeTotals/);
+  const thrown = run("dsa-range-total-queries", 'function batchRangeTotals() { throw new Error("example failure"); }');
   assert(thrown.results.every((r) => !r.pass && r.error === "example failure"));
 });
 
@@ -132,7 +132,7 @@ test("browser runner protocol passes adapters and validators through a worker an
     terminate() { this.worker.terminate(); }
   };
   try {
-    for (const id of ["dsa-move-zeroes", "dsa-linked-list-cycle", "dsa-reverse-linked-list", "dsa-tree-preorder", "dsa-tree-level-order", "dsa-permutations", "dsa-top-k-largest", "dsa-course-order", "dsa-union-find", "dsa-two-sum"]) {
+    for (const id of ["dsa-slide-zeros-back", "dsa-loop-in-chain", "dsa-flip-chain", "dsa-node-left-right-walk", "dsa-level-by-level-walk", "dsa-all-arrangements", "dsa-k-biggest-values", "dsa-task-dependency-order", "dsa-disjoint-groups", "dsa-matching-pair"]) {
       assertPasses(await runSolution({ ...problemById[id], source: tipsByProblemId[id].solution }));
     }
     const timed = await runSolution({ fnName: "forever", source: "function forever() { while (true) {} }", tests: [{ input: [], expected: null }], timeoutMs: 200 });

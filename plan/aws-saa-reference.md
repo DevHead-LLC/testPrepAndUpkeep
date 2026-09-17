@@ -140,7 +140,7 @@ From the official guide appendix — non-exhaustive, subject to change:
 - **Integration:** EventBridge, SNS, SQS, Step Functions, AppSync, AppFlow, MQ
 - **Compute:** EC2, Auto Scaling, Lambda, Batch, Beanstalk, Outposts, Fargate
 - **Containers:** ECS, EKS, ECR
-- **Database:** RDS, Aurora, DynamoDB, ElastiCache, DocumentDB, Neptune, Keyspaces, QLDB, Redshift
+- **Database:** RDS, Aurora, DynamoDB, ElastiCache, DocumentDB, Neptune, Keyspaces, Timestream for InfluxDB, MemoryDB, Redshift
 - **Networking:** VPC, Route 53, CloudFront, Global Accelerator, Direct Connect, VPN, Transit Gateway, PrivateLink, ELB
 - **Security:** IAM, IAM Identity Center, KMS, ACM, Secrets Manager, WAF, Shield, GuardDuty, Macie, Cognito, Organizations, Control Tower, Config, CloudTrail
 - **Storage:** S3, EBS, EFS, FSx, Glacier, Storage Gateway, Backup

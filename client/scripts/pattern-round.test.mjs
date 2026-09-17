@@ -36,8 +36,8 @@ test("difficulty reviews partition both full quizzes and keep separate progress 
   assert.equal(keys.size, 8);
   const easy = patternReview(patternBanks[0], "easy");
   const medium = patternReview(patternBanks[0], "medium");
-  assert(!easy.questions.some((q) => q.exerciseId === "dsa-move-zeroes"));
-  assert(medium.questions.some((q) => q.exerciseId === "dsa-move-zeroes"));
+  assert(!easy.questions.some((q) => q.exerciseId === "dsa-slide-zeros-back"));
+  assert(medium.questions.some((q) => q.exerciseId === "dsa-slide-zeros-back"));
 });
 
 test("each trigger round covers every coding exercise exactly once without mutating content", () => {

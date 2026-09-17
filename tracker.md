@@ -43,7 +43,7 @@ These rules keep the file useful and small. The agent follows them every time it
 - **AWS grading:** by option id (sets); multi-select all-or-nothing; Overall Test pass threshold 72%; Section Review mastery target 75%.
 - **AWS Section Review is topic-based + nested** (Stephane Maarek course taxonomy in `content/aws-saa/topics.js`): review a whole domain, a course section, or a single sub-topic. Each review target has its own Latest/Best/#taken. Overall Test still uses the 4 exam domains for weighting. Attempts carry a `reviewId` (domain key, `sec:<id>`, or `sub:<id>`).
 - **Study workflow:** drill each sub-topic to ≥75% → take the full course section to ≥75% → Overall Test to ≥75% → real exam.
-- **DSA grading:** user writes JS in an in-app editor; code runs in a **Web Worker** (sandboxed, killable on infinite loops via timeout) against `tests`; any implementation returning expected outputs passes. The combined bank exports from `content/dsa/problems.js`; additions live in `expansion.data.js`, with guides in `expansion-tips.data.js`. Two `kind`s: `"function"` (define `fnName`; tests `{input,expected}`) and `"design"` (define a class `className`; tests `{ops,args,expected}`, LeetCode-style) for data-structure implementation problems.
+- **DSA grading:** user writes JS in an in-app editor; code runs in a **Web Worker** (sandboxed, killable on infinite loops via timeout) against `tests`; any implementation returning expected outputs passes. The combined bank exports from `content/dsa/problems.js`; additions live in `expansion.data.js`, with guides in `expansion-tips.data.js`. Two `kind`s: `"function"` (define `fnName`; tests `{input,expected}`) and `"design"` (define a class `className`; tests `{ops,args,expected}` method sequences) for data-structure implementation problems.
 - **Three tabs:** AWS SAA · DSA · Real World. DSA and Real World share one generic engine (`tracks/CodeTrack.jsx` + `components/code/CodeHome.jsx` + `CodeSolve.jsx`), parameterized by `trackKey`, content, and intro. Each code track stores attempts under its own `tpu:<track>:attempts` key.
 - **AI Red Team** lives under Real World (`topic: "AI Red Team"`, `mode: "redteam"`). Starter = a model's shipped attempt; hidden tests catch the production miss. Content in `content/realworld/redteam.data.js`, analysis tips in `content/realworld/tips.js`. IDs `rw-rt-*` are permanent.
 - **Storage keys** namespaced per track: `tpu:<track>:attempts`.
@@ -71,7 +71,7 @@ These rules keep the file useful and small. The agent follows them every time it
 
 ## Now
 
-- **Code list UX:** difficulty filter persists per track in localStorage; Cmd/Ctrl-click or middle-click opens a challenge in a new window via hash routes (`#dsa/id`); list window refreshes solved stats on focus/storage. User should click through.
+- **All AWS SAA banks independently authored:** Domains 1–4 (453 questions) prompts/options/explanations rewritten into original wording. Validate + lint + build pass.
 
 ## Next (ordered)
 

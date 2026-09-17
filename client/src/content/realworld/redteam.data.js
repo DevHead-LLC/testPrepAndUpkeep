@@ -1,7 +1,10 @@
 // AI Red Team drills — the starter is a model's "finished" solution.
 // Your job is the DataAnnotation loop: run it, find why it fails production
 // standards, explain the failure, and patch it. Hidden tests catch the
-// interesting miss. Original problems (not copied).
+// interesting miss.
+//
+// Independently authored educational exercises. Failure modes and fixtures
+// are original practice content, not copied problem banks.
 
 export const FAILURE_LABELS = {
   "faked-tests": "Faked tests",
@@ -54,18 +57,18 @@ export const redteamProblems = [
     ],
   },
   {
-    id: "rw-rt-unique-emails",
+    id: "rw-rt-distinct-mailboxes",
     topic: "AI Red Team",
-    title: "Unique Emails — Exact Match Only",
+    title: "Distinct Mailboxes — Exact Match Only",
     difficulty: "easy",
     mode: "redteam",
     failureMode: "silent-bug",
     modelClaim: "Set gives uniqueness in linear time. Done.",
-    fnName: "uniqueEmails",
+    fnName: "distinctMailboxes",
     prompt:
-      "uniqueEmails(emails) returns unique addresses in first-seen order after normalizing each value with trim + lowercase. Return the normalized form.",
+      "distinctMailboxes(addresses) returns unique addresses in first-seen order after normalizing each value with trim + lowercase. Return the normalized form.",
     starter:
-      "function uniqueEmails(emails) {\n  return [...new Set(emails)];\n}\n",
+      "function distinctMailboxes(addresses) {\n  return [...new Set(addresses)];\n}\n",
     tests: [
       { input: [["a@x.com", "b@x.com", "a@x.com"]], expected: ["a@x.com", "b@x.com"] },
       { input: [[]], expected: [] },

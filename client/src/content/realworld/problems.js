@@ -1,6 +1,9 @@
 // "Real World" practice — applied, scenario-based problems you might hit
-// building real systems. Original problems (not copied), but they exercise the
-// same concepts and structures as common interview/LeetCode questions.
+// building real systems.
+//
+// Independently authored educational exercises inspired by common
+// computer-science and production-engineering patterns. Concepts are not
+// proprietary; titles, scenarios, prompts, and fixtures are original.
 //
 // Same shape and grading as the DSA track (see content/dsa/problems.js):
 //  - "function" problems: define `fnName`; tests are { input: [...args], expected }.
@@ -22,40 +25,40 @@ export const topics = [
 
 export const problems = [
   {
-    id: "rw-merge-intervals",
+    id: "rw-collapse-calendar",
     topic: "Intervals",
-    title: "Merge Meeting Times",
+    title: "Collapse Calendar Blocks",
     difficulty: "medium",
-    fnName: "mergeIntervals",
+    fnName: "collapseCalendarBlocks",
     prompt:
-      "Given a list of [start, end] meeting intervals, merge any that overlap and return the merged list sorted by start time. Touching ends that overlap (e.g. [1,4] and [4,5]) should merge.",
+      "A calendar API returns booked spans as [start, end] minute offsets. Merge any overlapping or touching spans and return the result sorted by start. Touching endpoints merge: [10, 25] and [25, 40] become [10, 40].",
     starter:
-      "function mergeIntervals(intervals) {\n  // return the merged list of [start, end]\n}\n",
+      "function collapseCalendarBlocks(spans) {\n  // return the merged list of [start, end]\n}\n",
     tests: [
       {
-        input: [[[1, 3], [2, 6], [8, 10], [15, 18]]],
-        expected: [[1, 6], [8, 10], [15, 18]],
+        input: [[[10, 25], [20, 45], [60, 75], [90, 110]]],
+        expected: [[10, 45], [60, 75], [90, 110]],
       },
-      { input: [[[1, 4], [4, 5]]], expected: [[1, 5]] },
-      { input: [[[1, 2]]], expected: [[1, 2]] },
-      { input: [[[1, 4], [0, 4]]], expected: [[0, 4]], hidden: true },
+      { input: [[[12, 30], [30, 38]]], expected: [[12, 38]] },
+      { input: [[[5, 9]]], expected: [[5, 9]] },
+      { input: [[[8, 20], [3, 20]]], expected: [[3, 20]], hidden: true },
     ],
   },
   {
-    id: "rw-can-attend",
+    id: "rw-schedule-fits",
     topic: "Intervals",
-    title: "Can Attend All Meetings",
+    title: "Schedule Fits Without Clash",
     difficulty: "easy",
-    fnName: "canAttendMeetings",
+    fnName: "scheduleFits",
     prompt:
-      "Given a list of [start, end] meeting intervals, return true if a person can attend all meetings (no two meetings overlap). Meetings that only touch at an endpoint do not conflict.",
+      "Given proposed [start, end] appointments, return true if a single person can take every appointment without overlap. Spans that only touch at an endpoint do not conflict.",
     starter:
-      "function canAttendMeetings(intervals) {\n  // return true or false\n}\n",
+      "function scheduleFits(appointments) {\n  // return true or false\n}\n",
     tests: [
-      { input: [[[0, 30], [5, 10], [15, 20]]], expected: false },
-      { input: [[[7, 10], [2, 4]]], expected: true },
+      { input: [[[9, 50], [15, 25], [35, 45]]], expected: false },
+      { input: [[[40, 55], [10, 20]]], expected: true },
       { input: [[]], expected: true },
-      { input: [[[1, 2], [2, 3]]], expected: true, hidden: true },
+      { input: [[[4, 8], [8, 12]]], expected: true, hidden: true },
     ],
   },
   {
@@ -149,20 +152,20 @@ export const problems = [
     ],
   },
   {
-    id: "rw-summarize-ranges",
+    id: "rw-compress-sorted-runs",
     topic: "Arrays & Data",
-    title: "Summarize Number Ranges",
+    title: "Compress Sorted Runs",
     difficulty: "medium",
-    fnName: "summarizeRanges",
+    fnName: "compressSortedRuns",
     prompt:
-      "Given a sorted array of unique integers, return the consecutive ranges as strings. A single number is \"n\"; a run is \"a->b\". Example: [0,1,2,4,5,7] -> [\"0->2\",\"4->5\",\"7\"].",
+      "Given a sorted list of unique integers, describe consecutive runs as strings. A lone value is \"n\"; a contiguous run is \"a..b\". Example: [3, 4, 5, 8, 10, 11] → [\"3..5\", \"8\", \"10..11\"].",
     starter:
-      "function summarizeRanges(nums) {\n  // return an array of range strings\n}\n",
+      "function compressSortedRuns(nums) {\n  // return an array of run strings\n}\n",
     tests: [
-      { input: [[0, 1, 2, 4, 5, 7]], expected: ["0->2", "4->5", "7"] },
-      { input: [[0, 2, 3, 4, 6, 8, 9]], expected: ["0", "2->4", "6", "8->9"] },
+      { input: [[3, 4, 5, 8, 10, 11]], expected: ["3..5", "8", "10..11"] },
+      { input: [[1, 3, 4, 5, 7, 9, 10]], expected: ["1", "3..5", "7", "9..10"] },
       { input: [[]], expected: [] },
-      { input: [[1]], expected: ["1"], hidden: true },
+      { input: [[6]], expected: ["6"], hidden: true },
     ],
   },
   {
@@ -251,26 +254,26 @@ export const problems = [
     ],
   },
   {
-    id: "rw-leaderboard",
+    id: "rw-scoreboard",
     topic: "Design",
-    title: "Game Leaderboard",
+    title: "Cumulative Scoreboard",
     difficulty: "medium",
     kind: "design",
-    className: "Leaderboard",
+    className: "Scoreboard",
     prompt:
-      "Design a leaderboard. addScore(playerId, score) adds to a player's cumulative score (creating them if new). top(K) returns the sum of the K highest player scores. reset(playerId) sets that player's score back to 0.",
+      "Design a scoreboard. recordPoints(playerId, points) adds to a player's running total (creating them if new). bestSum(K) returns the sum of the K highest player totals. clearPlayer(playerId) sets that player's total back to 0.",
     starter:
-      "class Leaderboard {\n  constructor() {\n\n  }\n  addScore(playerId, score) {\n\n  }\n  top(K) {\n\n  }\n  reset(playerId) {\n\n  }\n}\n",
+      "class Scoreboard {\n  constructor() {\n\n  }\n  recordPoints(playerId, points) {\n\n  }\n  bestSum(K) {\n\n  }\n  clearPlayer(playerId) {\n\n  }\n}\n",
     tests: [
       {
-        ops: ["Leaderboard", "addScore", "addScore", "addScore", "top", "reset", "top"],
-        args: [[], [1, 50], [2, 30], [3, 20], [2], [1], [2]],
-        expected: [null, null, null, null, 80, null, 50],
+        ops: ["Scoreboard", "recordPoints", "recordPoints", "recordPoints", "bestSum", "clearPlayer", "bestSum"],
+        args: [[], [10, 40], [20, 25], [30, 15], [2], [10], [2]],
+        expected: [null, null, null, null, 65, null, 40],
       },
       {
-        ops: ["Leaderboard", "addScore", "addScore", "top"],
-        args: [[], [1, 5], [1, 3], [1]],
-        expected: [null, null, null, 8],
+        ops: ["Scoreboard", "recordPoints", "recordPoints", "bestSum"],
+        args: [[], [7, 4], [7, 6], [1]],
+        expected: [null, null, null, 10],
         hidden: true,
       },
     ],

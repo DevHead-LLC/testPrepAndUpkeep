@@ -1,25 +1,28 @@
-// Additional coding exercises covering the 32 pattern-recognition answers.
+// Additional coding exercises covering the pattern-recognition answers.
+// Original coding exercises inspired by common computer-science and
+// technical-interview patterns. Titles, scenarios, prompts, and fixtures
+// are independently authored.
 // Visible tests also supply the in-app example inputs and expected outputs.
 export const expansionProblems = [
   {
-    "id": "dsa-queue-processing",
+    "id": "dsa-fifo-ops",
     "topic": "Queues",
-    "title": "Process a FIFO Queue",
+    "title": "Run FIFO Operations",
     "difficulty": "easy",
-    "fnName": "processQueue",
-    "prompt": "Given operations such as [\"enqueue\", value], [\"dequeue\"], [\"peek\"], and [\"empty\"], process a simple FIFO queue and return one result per operation. enqueue returns null; dequeue removes and returns the oldest value, or null if empty; peek returns that value without removing it, or null if empty; empty returns a boolean. Values are integers. Use the familiar array queue (push/shift), or an array with a front index. You do not need to design a queue class or use two stacks.",
-    "starter": "function processQueue(operations) {\n  // Write your solution here.\n}\n",
+    "fnName": "runFifoOps",
+    "prompt": "A ticket desk processes operation lists shaped like [\"enqueue\", value], [\"dequeue\"], [\"peek\"], and [\"empty\"]. Return one result per operation: enqueue → null; dequeue → oldest value or null if empty; peek → oldest value without removing it, or null if empty; empty → boolean. Values are integers. Use an array as a queue (push/shift or a front index). You do not need a class or two stacks.",
+    "starter": "function runFifoOps(operations) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
           [
             [
               "enqueue",
-              4
+              11
             ],
             [
               "enqueue",
-              7
+              5
             ],
             [
               "peek"
@@ -41,10 +44,10 @@ export const expansionProblems = [
         "expected": [
           null,
           null,
-          4,
-          4,
+          11,
+          11,
           false,
-          7,
+          5,
           true
         ]
       },
@@ -83,14 +86,14 @@ export const expansionProblems = [
             ],
             [
               "enqueue",
-              -2
+              -4
             ],
             [
               "dequeue"
             ],
             [
               "enqueue",
-              9
+              12
             ],
             [
               "dequeue"
@@ -105,8 +108,8 @@ export const expansionProblems = [
           null,
           0,
           null,
-          -2,
-          9
+          -4,
+          12
         ],
         "hidden": true
       },
@@ -115,11 +118,11 @@ export const expansionProblems = [
           [
             [
               "enqueue",
-              3
+              8
             ],
             [
               "enqueue",
-              3
+              8
             ],
             [
               "dequeue"
@@ -135,8 +138,8 @@ export const expansionProblems = [
         "expected": [
           null,
           null,
-          3,
-          3,
+          8,
+          8,
           null
         ],
         "hidden": true
@@ -144,51 +147,47 @@ export const expansionProblems = [
     ]
   },
   {
-    "id": "dsa-min-subarray-length",
+    "id": "dsa-shortest-qualifying-stretch",
     "topic": "Sliding Window",
-    "title": "Minimum Size Subarray Sum",
+    "title": "Shortest Qualifying Stretch",
     "difficulty": "medium",
-    "fnName": "minSubArrayLen",
-    "prompt": "Given a positive integer target and an array nums of positive integers, return the minimum length of a contiguous subarray whose sum is at least target. Return 0 if no such subarray exists, including an empty input. Aim for O(n) time using a growing and shrinking window.",
-    "starter": "function minSubArrayLen(target, nums) {\n  // Write your solution here.\n}\n",
+    "fnName": "shortestStretch",
+    "prompt": "You are given a positive threshold and a list of positive integers. Return the length of the shortest contiguous stretch whose values sum to at least the threshold. Return 0 if none exists (including an empty list). Aim for O(n) with a growing/shrinking window.",
+    "starter": "function shortestStretch(threshold, values) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
-          7,
+          9,
           [
-            2,
             3,
             1,
-            2,
             4,
-            3
+            2,
+            5,
+            1
           ]
         ],
-        "expected": 2
+        "expected": 3
       },
       {
         "input": [
-          4,
+          5,
           [
-            1,
-            4,
-            4
+            2,
+            5,
+            5
           ]
         ],
         "expected": 1
       },
       {
         "input": [
-          11,
+          20,
           [
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1,
-            1
+            2,
+            2,
+            2,
+            2
           ]
         ],
         "expected": 0
@@ -203,10 +202,10 @@ export const expansionProblems = [
       },
       {
         "input": [
-          6,
+          8,
           [
-            1,
             2,
+            3,
             3
           ]
         ],
@@ -215,41 +214,38 @@ export const expansionProblems = [
       },
       {
         "input": [
-          15,
+          12,
           [
-            5,
-            1,
-            3,
-            5,
-            10,
-            7,
             4,
-            9,
             2,
-            8
+            1,
+            6,
+            3,
+            8,
+            2
           ]
         ],
-        "expected": 2,
+        "expected": 3,
         "hidden": true
       }
     ]
   },
   {
-    "id": "dsa-range-sums",
-    "topic": "Prefix Sum",
-    "title": "Range Sum Queries",
+    "id": "dsa-range-total-queries",
+    "topic": "Arrays",
+    "title": "Batch Range Totals",
     "difficulty": "easy",
-    "fnName": "rangeSums",
-    "prompt": "Given an integer array nums and queries [left, right] with valid zero-based inclusive endpoints, return the sum for each query in order. The array does not change. Preprocess once with prefix sums so each query takes O(1). queries may be empty; an empty nums has no queries.",
-    "starter": "function rangeSums(nums, queries) {\n  // Write your solution here.\n}\n",
+    "fnName": "batchRangeTotals",
+    "prompt": "Given an integer list and queries of the form [left, right] (zero-based, inclusive, always valid), return each range sum in order. The list never changes. Precompute prefix totals so each query is O(1). An empty list implies no queries.",
+    "starter": "function batchRangeTotals(values, queries) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
           [
-            2,
-            -1,
-            3,
-            5
+            4,
+            -2,
+            6,
+            1
           ],
           [
             [
@@ -261,21 +257,21 @@ export const expansionProblems = [
               3
             ],
             [
-              2,
-              2
+              3,
+              3
             ]
           ]
         ],
         "expected": [
-          4,
-          7,
-          3
+          8,
+          5,
+          1
         ]
       },
       {
         "input": [
           [
-            5
+            9
           ],
           [
             [
@@ -285,7 +281,7 @@ export const expansionProblems = [
           ]
         ],
         "expected": [
-          5
+          9
         ]
       },
       {
@@ -298,9 +294,9 @@ export const expansionProblems = [
       {
         "input": [
           [
-            -3,
-            -2,
-            -1
+            -4,
+            -1,
+            -2
           ],
           [
             [
@@ -318,9 +314,9 @@ export const expansionProblems = [
           ]
         ],
         "expected": [
-          -6,
-          -2,
-          -3
+          -7,
+          -1,
+          -4
         ],
         "hidden": true
       },
@@ -328,9 +324,9 @@ export const expansionProblems = [
         "input": [
           [
             0,
-            4,
+            5,
             0,
-            4
+            5
           ],
           [
             [
@@ -348,56 +344,52 @@ export const expansionProblems = [
           ]
         ],
         "expected": [
-          8,
-          8,
-          8
+          10,
+          10,
+          10
         ],
         "hidden": true
       }
     ]
   },
   {
-    "id": "dsa-merge-intervals",
+    "id": "dsa-collapse-overlaps",
     "topic": "Intervals",
-    "title": "Merge Overlapping Intervals",
+    "title": "Collapse Overlapping Spans",
     "difficulty": "medium",
-    "fnName": "mergeIntervals",
-    "prompt": "Given intervals [start, end] with start <= end, merge all overlapping intervals and return the merged intervals sorted by start. Intervals sharing an endpoint also merge: [1,3] and [3,5] become [1,5]. Return [] for no intervals.",
-    "starter": "function mergeIntervals(intervals) {\n  // Write your solution here.\n}\n",
+    "fnName": "collapseOverlaps",
+    "prompt": "Each span is [start, end] with start <= end. Merge every overlapping or touching span and return the result sorted by start. Touching endpoints merge: [2, 5] and [5, 8] become [2, 8]. Return [] when there are no spans.",
+    "starter": "function collapseOverlaps(spans) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
           [
             [
-              1,
-              3
-            ],
-            [
               2,
-              6
+              5
             ],
             [
-              8,
-              10
+              4,
+              8
             ],
             [
-              15,
-              18
+              10,
+              12
+            ],
+            [
+              11,
+              14
             ]
           ]
         ],
         "expected": [
           [
-            1,
-            6
+            2,
+            8
           ],
           [
-            8,
-            10
-          ],
-          [
-            15,
-            18
+            10,
+            14
           ]
         ]
       },
@@ -405,19 +397,19 @@ export const expansionProblems = [
         "input": [
           [
             [
-              1,
-              4
+              3,
+              6
             ],
             [
-              4,
-              5
+              6,
+              9
             ]
           ]
         ],
         "expected": [
           [
-            1,
-            5
+            3,
+            9
           ]
         ]
       },
@@ -431,23 +423,23 @@ export const expansionProblems = [
         "input": [
           [
             [
-              5,
-              7
+              8,
+              9
             ],
             [
               1,
-              10
+              12
             ],
             [
-              2,
-              3
+              3,
+              4
             ]
           ]
         ],
         "expected": [
           [
             1,
-            10
+            12
           ]
         ],
         "hidden": true
@@ -456,27 +448,27 @@ export const expansionProblems = [
         "input": [
           [
             [
-              1,
-              1
-            ],
-            [
-              1,
-              1
+              2,
+              2
             ],
             [
               2,
               2
+            ],
+            [
+              5,
+              5
             ]
           ]
         ],
         "expected": [
-          [
-            1,
-            1
-          ],
           [
             2,
             2
+          ],
+          [
+            5,
+            5
           ]
         ],
         "hidden": true
@@ -485,26 +477,26 @@ export const expansionProblems = [
         "input": [
           [
             [
+              -5,
+              -2
+            ],
+            [
               -3,
-              -1
+              1
             ],
             [
-              -2,
-              2
-            ],
-            [
-              5,
+              4,
               6
             ]
           ]
         ],
         "expected": [
           [
-            -3,
-            2
+            -5,
+            1
           ],
           [
-            5,
+            4,
             6
           ]
         ],
@@ -513,21 +505,22 @@ export const expansionProblems = [
     ]
   },
   {
-    "id": "dsa-linked-list-cycle",
+    "id": "dsa-loop-in-chain",
     "topic": "Linked Lists",
-    "title": "Linked List Cycle",
+    "title": "Loop in a Chain",
     "difficulty": "easy",
-    "fnName": "hasCycle",
-    "prompt": "Given head of a singly linked list, return true if following next references eventually revisits a node; otherwise return false. Each node is { val, next }, and an empty head is null. Aim for O(n) time and O(1) extra space without changing the list. Examples show values and a zero-based tail-connection index: -1 means no cycle. The runner builds the actual linked nodes and passes only head, not the values array or connection index.",
-    "starter": "function hasCycle(head) {\n  // Write your solution here.\n}\n",
+    "fnName": "chainHasLoop",
+    "inputKind": "linked-list-cycle",
+    "prompt": "Given the head of a singly linked chain of { val, next } nodes, return true if following next eventually revisits a node; otherwise false. An empty head is null. Aim for O(n) time and O(1) extra space without mutating the chain. Examples show values plus a zero-based index where the tail reconnects (-1 means no loop). The runner builds the nodes and passes only head.",
+    "starter": "function chainHasLoop(head) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
           [
-            3,
-            2,
-            0,
-            -4
+            5,
+            1,
+            8,
+            2
           ],
           1
         ],
@@ -536,8 +529,8 @@ export const expansionProblems = [
       {
         "input": [
           [
-            1,
-            2
+            4,
+            9
           ],
           -1
         ],
@@ -553,7 +546,7 @@ export const expansionProblems = [
       {
         "input": [
           [
-            1
+            7
           ],
           0
         ],
@@ -563,9 +556,9 @@ export const expansionProblems = [
       {
         "input": [
           [
-            1,
-            1,
-            1
+            2,
+            2,
+            2
           ],
           -1
         ],
@@ -575,10 +568,10 @@ export const expansionProblems = [
       {
         "input": [
           [
-            9,
-            8,
-            7,
-            6
+            4,
+            3,
+            2,
+            1
           ],
           0
         ],
@@ -588,53 +581,53 @@ export const expansionProblems = [
       {
         "input": [
           [
-            1
+            6
           ],
           -1
         ],
         "expected": false,
         "hidden": true
       }
-    ],
-    "inputKind": "linked-list-cycle"
+    ]
   },
   {
-    "id": "dsa-reverse-linked-list",
+    "id": "dsa-flip-chain",
     "topic": "Linked Lists",
-    "title": "Reverse Linked List",
+    "title": "Flip a Chain",
     "difficulty": "easy",
-    "fnName": "reverseList",
-    "prompt": "Given head of an acyclic singly linked list of { val, next } nodes, reverse its links in place and return the new head. Empty head is null. Reuse the original nodes and preserve their values; do not return an array or a newly allocated list. Examples show list values before and after reversal. The runner creates the nodes for you and verifies that the returned list uses the same nodes in reverse order.",
-    "starter": "function reverseList(head) {\n  // Write your solution here.\n}\n",
+    "fnName": "flipChain",
+    "inputKind": "linked-list",
+    "prompt": "Given the head of an acyclic singly linked chain of { val, next } nodes, reverse the links in place and return the new head. Empty head is null. Reuse the original nodes and keep their values; do not return an array or allocate a fresh chain. Examples show values before and after. The runner builds the nodes and checks that the same node objects appear in reverse order.",
+    "starter": "function flipChain(head) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
           [
-            1,
-            2,
+            8,
             3,
-            4,
-            5
-          ]
-        ],
-        "expected": [
-          5,
-          4,
-          3,
-          2,
-          1
-        ]
-      },
-      {
-        "input": [
-          [
             1,
+            6,
             2
           ]
         ],
         "expected": [
           2,
-          1
+          6,
+          1,
+          3,
+          8
+        ]
+      },
+      {
+        "input": [
+          [
+            4,
+            9
+          ]
+        ],
+        "expected": [
+          9,
+          4
         ]
       },
       {
@@ -646,87 +639,87 @@ export const expansionProblems = [
       {
         "input": [
           [
-            7
+            11
           ]
         ],
         "expected": [
-          7
+          11
         ],
         "hidden": true
       },
       {
         "input": [
           [
-            2,
-            2,
+            5,
+            5,
+            7
+          ]
+        ],
+        "expected": [
+          7,
+          5,
+          5
+        ],
+        "hidden": true
+      },
+      {
+        "input": [
+          [
+            -2,
+            0,
             3
           ]
         ],
         "expected": [
           3,
-          2,
-          2
-        ],
-        "hidden": true
-      },
-      {
-        "input": [
-          [
-            -1,
-            0,
-            4
-          ]
-        ],
-        "expected": [
-          4,
           0,
-          -1
+          -2
         ],
         "hidden": true
       }
-    ],
-    "inputKind": "linked-list"
+    ]
   },
   {
-    "id": "dsa-tree-preorder",
+    "id": "dsa-node-left-right-walk",
     "topic": "Trees",
-    "title": "Binary Tree Preorder Traversal",
+    "title": "Node-Left-Right Walk",
     "difficulty": "easy",
-    "fnName": "preorderTraversal",
-    "prompt": "Return a binary tree’s values in preorder: visit the node, its entire left subtree, then its entire right subtree. Return [] for an empty tree. The runner passes a root node { val, left, right }, or null, built from the level-order array shown in examples. null marks a missing child; children are read left then right for each non-null parent. Your function receives root, not the array.",
-    "starter": "function preorderTraversal(root) {\n  // Write your solution here.\n}\n",
+    "fnName": "nodeLeftRightWalk",
+    "inputKind": "binary-tree",
+    "prompt": "Return node values in preorder: the node, then its full left subtree, then its full right subtree. Return [] for an empty tree. The runner passes root as { val, left, right } or null, built from the level-order array in the examples (null marks a missing child). Your function receives root, not the array.",
+    "starter": "function nodeLeftRightWalk(root) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
           [
-            1,
+            4,
             null,
-            2,
-            3
+            7,
+            2
           ]
         ],
         "expected": [
-          1,
-          2,
-          3
+          4,
+          7,
+          2
         ]
       },
       {
         "input": [
           [
+            5,
             1,
-            2,
+            9,
             3,
-            4,
-            5
+            6
           ]
         ],
         "expected": [
-          1,
-          2,
-          4,
           5,
-          3
+          1,
+          3,
+          6,
+          9
         ]
       },
       {
@@ -749,81 +742,81 @@ export const expansionProblems = [
       {
         "input": [
           [
-            1,
-            2,
+            8,
+            4,
             null,
-            3
+            1
           ]
         ],
         "expected": [
-          1,
-          2,
-          3
+          8,
+          4,
+          1
         ],
         "hidden": true
       },
       {
         "input": [
           [
-            2,
-            2,
-            2
+            3,
+            3,
+            3
           ]
         ],
         "expected": [
-          2,
-          2,
-          2
+          3,
+          3,
+          3
         ],
         "hidden": true
       }
-    ],
-    "inputKind": "binary-tree"
+    ]
   },
   {
-    "id": "dsa-tree-level-order",
+    "id": "dsa-level-by-level-walk",
     "topic": "Trees",
-    "title": "Binary Tree Level Order Traversal",
+    "title": "Level-by-Level Walk",
     "difficulty": "medium",
-    "fnName": "levelOrder",
-    "prompt": "Return a binary tree’s values grouped by depth, from the root down, left to right within each level. Return [] for an empty tree. The runner passes a root node { val, left, right }, or null, built from the level-order array shown in examples. null marks a missing child; children are read left then right for each non-null parent. Your function receives root, not the array.",
-    "starter": "function levelOrder(root) {\n  // Write your solution here.\n}\n",
+    "fnName": "levelByLevelWalk",
+    "inputKind": "binary-tree",
+    "prompt": "Return node values grouped by depth from the root downward, left to right within each level. Return [] for an empty tree. The runner passes root as { val, left, right } or null from the level-order example arrays. Your function receives root, not the array.",
+    "starter": "function levelByLevelWalk(root) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
           [
+            8,
             3,
-            9,
-            20,
+            10,
             null,
             null,
-            15,
-            7
+            6,
+            14
           ]
         ],
         "expected": [
           [
-            3
+            8
           ],
           [
-            9,
-            20
+            3,
+            10
           ],
           [
-            15,
-            7
+            6,
+            14
           ]
         ]
       },
       {
         "input": [
           [
-            1
+            2
           ]
         ],
         "expected": [
           [
-            1
+            2
           ]
         ]
       },
@@ -836,21 +829,21 @@ export const expansionProblems = [
       {
         "input": [
           [
-            1,
+            4,
             null,
-            2,
-            3
+            5,
+            9
           ]
         ],
         "expected": [
           [
-            1
+            4
           ],
           [
-            2
+            5
           ],
           [
-            3
+            9
           ]
         ],
         "hidden": true
@@ -859,12 +852,12 @@ export const expansionProblems = [
         "input": [
           [
             1,
+            7,
             2,
-            3,
-            4,
+            8,
             null,
             null,
-            5
+            3
           ]
         ],
         "expected": [
@@ -872,27 +865,26 @@ export const expansionProblems = [
             1
           ],
           [
-            2,
-            3
+            7,
+            2
           ],
           [
-            4,
-            5
+            8,
+            3
           ]
         ],
         "hidden": true
       }
-    ],
-    "inputKind": "binary-tree"
+    ]
   },
   {
-    "id": "dsa-graph-dfs",
+    "id": "dsa-deep-graph-walk",
     "topic": "Graphs",
-    "title": "Depth-First Graph Traversal",
+    "title": "Deep Graph Walk",
     "difficulty": "medium",
-    "fnName": "dfsTraversal",
-    "prompt": "graph is an adjacency list: graph[u] lists outgoing neighbors of node u; node IDs are 0 through graph.length - 1. Starting at start, return nodes in depth-first discovery order, exploring neighbors in exactly their listed order. Visit each reachable node only once, even with cycles or duplicate edges. Return [] for an empty graph; otherwise start is valid. Disconnected nodes are not included.",
-    "starter": "function dfsTraversal(graph, start) {\n  // Write your solution here.\n}\n",
+    "fnName": "deepGraphWalk",
+    "prompt": "graph is an adjacency list: graph[u] lists outgoing neighbors of node u (IDs 0..graph.length-1). Starting at start, return nodes in depth-first discovery order, exploring neighbors in listed order. Visit each reachable node once even with cycles or duplicate edges. Return [] for an empty graph; otherwise start is valid. Unreachable components are omitted.",
+    "starter": "function deepGraphWalk(graph, start) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
@@ -922,21 +914,21 @@ export const expansionProblems = [
         "input": [
           [
             [
-              1
-            ],
-            [
               2
             ],
             [
               0
+            ],
+            [
+              1
             ]
           ],
           0
         ],
         "expected": [
           0,
-          1,
-          2
+          2,
+          1
         ]
       },
       {
@@ -1010,71 +1002,72 @@ export const expansionProblems = [
     ]
   },
   {
-    "id": "dsa-permutations",
+    "id": "dsa-all-arrangements",
     "topic": "Backtracking",
-    "title": "All Permutations",
+    "title": "All Distinct Arrangements",
     "difficulty": "medium",
-    "fnName": "permute",
-    "prompt": "Given an array nums of distinct integers, return every permutation exactly once. The permutations may appear in any order; the grader accepts all valid orderings of the outer array. Preserve the order of values inside each permutation. For [], return [[]], representing the one empty arrangement. Inputs contain at most 7 values.",
-    "starter": "function permute(nums) {\n  // Write your solution here.\n}\n",
+    "fnName": "allArrangements",
+    "outputKind": "unordered",
+    "prompt": "Given a list of distinct integers, return every arrangement exactly once. Outer-list order may vary; the grader accepts any ordering of the arrangements. Keep value order inside each arrangement. For [], return [[]]. Inputs have at most 7 values.",
+    "starter": "function allArrangements(values) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
           [
+            4,
             1,
-            2,
-            3
+            9
           ]
         ],
         "expected": [
           [
+            4,
             1,
-            2,
-            3
+            9
           ],
           [
-            1,
-            3,
-            2
-          ],
-          [
-            2,
-            1,
-            3
-          ],
-          [
-            2,
-            3,
+            4,
+            9,
             1
           ],
           [
-            3,
             1,
-            2
+            4,
+            9
           ],
           [
-            3,
-            2,
+            1,
+            9,
+            4
+          ],
+          [
+            9,
+            4,
             1
+          ],
+          [
+            9,
+            1,
+            4
           ]
         ]
       },
       {
         "input": [
           [
-            0,
-            1
-          ]
-        ],
-        "expected": [
-          [
-            0,
-            1
-          ],
-          [
-            1,
+            2,
             0
           ]
+        ],
+        "expected": [
+          [
+            2,
+            0
+          ],
+          [
+            0,
+            2
+          ]
         ]
       },
       {
@@ -1088,12 +1081,12 @@ export const expansionProblems = [
       {
         "input": [
           [
-            5
+            7
           ]
         ],
         "expected": [
           [
-            5
+            7
           ]
         ],
         "hidden": true
@@ -1101,41 +1094,41 @@ export const expansionProblems = [
       {
         "input": [
           [
-            -1,
+            -2,
             0,
-            2
+            5
           ]
         ],
         "expected": [
           [
-            -1,
+            -2,
             0,
-            2
+            5
           ],
           [
-            -1,
-            2,
+            -2,
+            5,
             0
           ],
           [
             0,
-            -1,
-            2
+            -2,
+            5
           ],
           [
             0,
-            2,
-            -1
+            5,
+            -2
           ],
           [
-            2,
-            -1,
+            5,
+            -2,
             0
           ],
           [
-            2,
+            5,
             0,
-            -1
+            -2
           ]
         ],
         "hidden": true
@@ -1297,62 +1290,59 @@ export const expansionProblems = [
         ],
         "hidden": true
       }
-    ],
-    "outputKind": "unordered"
+    ]
   },
   {
-    "id": "dsa-top-k-largest",
+    "id": "dsa-k-biggest-values",
     "topic": "Heaps",
-    "title": "K Largest Values",
+    "title": "K Biggest Values",
     "difficulty": "medium",
-    "fnName": "topKLargest",
-    "prompt": "Given an integer array nums and k with 0 <= k <= nums.length, return its k largest values in any order, retaining duplicates. Return [] when k is 0. Aim to keep a min-heap of at most k values rather than sorting the entire array. Example output is one valid ordering; the grader accepts any ordering with the correct values and multiplicities.",
-    "starter": "function topKLargest(nums, k) {\n  // Write your solution here.\n}\n",
+    "fnName": "kBiggestValues",
+    "outputKind": "unordered",
+    "prompt": "Given integers and k (0 <= k <= length), return the k biggest values in any order, keeping duplicates. Return [] when k is 0. Prefer a size-k min-heap over fully sorting. Example order is one valid answer; the grader accepts any correct multiset.",
+    "starter": "function kBiggestValues(values, k) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
           [
-            3,
-            2,
-            1,
-            5,
-            6,
-            4
-          ],
-          2
-        ],
-        "expected": [
-          5,
-          6
-        ]
-      },
-      {
-        "input": [
-          [
-            3,
-            2,
-            3,
-            1,
-            2,
             4,
-            5,
-            5,
-            6
+            9,
+            1,
+            7,
+            2,
+            8
           ],
-          4
+          3
         ],
         "expected": [
-          4,
-          5,
-          5,
-          6
+          9,
+          8,
+          7
         ]
       },
       {
         "input": [
           [
+            2,
+            2,
+            5,
             1,
-            2
+            5,
+            3
+          ],
+          3
+        ],
+        "expected": [
+          5,
+          5,
+          3
+        ]
+      },
+      {
+        "input": [
+          [
+            6,
+            1
           ],
           0
         ],
@@ -1361,30 +1351,30 @@ export const expansionProblems = [
       {
         "input": [
           [
-            -5,
-            -1,
-            -3
+            -8,
+            -2,
+            -5
           ],
           2
         ],
         "expected": [
-          -3,
-          -1
+          -2,
+          -5
         ],
         "hidden": true
       },
       {
         "input": [
           [
-            2,
-            2,
-            2
+            3,
+            3,
+            3
           ],
           2
         ],
         "expected": [
-          2,
-          2
+          3,
+          3
         ],
         "hidden": true
       },
@@ -1399,51 +1389,44 @@ export const expansionProblems = [
       {
         "input": [
           [
-            4,
-            1,
-            3
+            5,
+            2,
+            4
           ],
           3
         ],
         "expected": [
-          1,
-          3,
-          4
+          5,
+          4,
+          2
         ],
         "hidden": true
       }
-    ],
-    "outputKind": "unordered"
+    ]
   },
   {
-    "id": "dsa-daily-temperatures",
+    "id": "dsa-days-until-warmer",
     "topic": "Stacks",
-    "title": "Daily Temperatures",
+    "title": "Days Until Warmer",
     "difficulty": "medium",
-    "fnName": "dailyTemperatures",
-    "prompt": "For each daily temperature, return how many days you must wait for a strictly warmer temperature. Return 0 when no later day is warmer. Equal temperatures do not count as warmer. Return [] for empty input. Aim for O(n) time with a monotonic stack of unresolved indices.",
-    "starter": "function dailyTemperatures(temperatures) {\n  // Write your solution here.\n}\n",
+    "fnName": "daysUntilWarmer",
+    "prompt": "For each daily reading, return how many days until a strictly higher reading appears later. Use 0 when none exists. Equal readings do not count. Return [] for empty input. Aim for O(n) with a monotonic stack of unresolved indices.",
+    "starter": "function daysUntilWarmer(readings) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
           [
-            73,
-            74,
-            75,
-            71,
-            69,
+            68,
+            70,
+            67,
             72,
-            76,
-            73
+            69
           ]
         ],
         "expected": [
           1,
-          1,
-          4,
           2,
           1,
-          1,
           0,
           0
         ]
@@ -1451,25 +1434,25 @@ export const expansionProblems = [
       {
         "input": [
           [
+            20,
+            25,
             30,
+            35
+          ]
+        ],
+        "expected": [
+          1,
+          1,
+          1,
+          0
+        ]
+      },
+      {
+        "input": [
+          [
+            50,
             40,
-            50,
-            60
-          ]
-        ],
-        "expected": [
-          1,
-          1,
-          1,
-          0
-        ]
-      },
-      {
-        "input": [
-          [
-            60,
-            50,
-            40
+            30
           ]
         ],
         "expected": [
@@ -1481,9 +1464,9 @@ export const expansionProblems = [
       {
         "input": [
           [
-            30,
-            30,
-            31
+            22,
+            22,
+            24
           ]
         ],
         "expected": [
@@ -1503,7 +1486,7 @@ export const expansionProblems = [
       {
         "input": [
           [
-            42
+            55
           ]
         ],
         "expected": [
@@ -1514,9 +1497,9 @@ export const expansionProblems = [
       {
         "input": [
           [
-            70,
-            70,
-            70
+            80,
+            80,
+            80
           ]
         ],
         "expected": [
@@ -1529,18 +1512,18 @@ export const expansionProblems = [
     ]
   },
   {
-    "id": "dsa-union-find",
-    "topic": "Graphs",
-    "title": "Union Find / Disjoint Set",
+    "id": "dsa-disjoint-groups",
+    "topic": "Union Find",
+    "title": "Disjoint Groups",
     "difficulty": "medium",
     "kind": "design",
-    "className": "DisjointSet",
-    "prompt": "Implement DisjointSet(n) for nodes 0 through n - 1, initially in separate groups. union(a, b) joins their groups and returns true only if two different groups merged, otherwise false. connected(a, b) returns whether they share a group. count() returns the number of groups. n may be 0; all node arguments are valid. Aim for union by size/rank with path compression.",
-    "starter": "class DisjointSet {\n  constructor(n) {\n  }\n  union(a, b) {\n  }\n  connected(a, b) {\n  }\n  count() {\n  }\n}\n",
+    "className": "GroupTracker",
+    "prompt": "Implement GroupTracker(n) for nodes 0..n-1, each starting alone. union(a, b) merges groups and returns true only when two different groups joined. connected(a, b) reports shared membership. count() returns how many groups remain. n may be 0; node arguments are always valid. Prefer union by size/rank with path compression.",
+    "starter": "class GroupTracker {\n  constructor(n) {\n\n  }\n  union(a, b) {\n\n  }\n  connected(a, b) {\n\n  }\n  count() {\n\n  }\n}\n",
     "tests": [
       {
         "ops": [
-          "DisjointSet",
+          "GroupTracker",
           "count",
           "union",
           "connected",
@@ -1583,7 +1566,7 @@ export const expansionProblems = [
       },
       {
         "ops": [
-          "DisjointSet",
+          "GroupTracker",
           "union",
           "union",
           "union",
@@ -1623,7 +1606,7 @@ export const expansionProblems = [
       },
       {
         "ops": [
-          "DisjointSet",
+          "GroupTracker",
           "count"
         ],
         "args": [
@@ -1639,7 +1622,7 @@ export const expansionProblems = [
       },
       {
         "ops": [
-          "DisjointSet",
+          "GroupTracker",
           "union",
           "connected",
           "count"
@@ -1668,7 +1651,7 @@ export const expansionProblems = [
       },
       {
         "ops": [
-          "DisjointSet",
+          "GroupTracker",
           "union",
           "union",
           "union",
@@ -1722,13 +1705,13 @@ export const expansionProblems = [
     ]
   },
   {
-    "id": "dsa-graph-shortest-path",
+    "id": "dsa-unweighted-shortest-hops",
     "topic": "Graphs",
-    "title": "Shortest Path in an Unweighted Graph",
+    "title": "Fewest Hops",
     "difficulty": "medium",
-    "fnName": "shortestPath",
-    "prompt": "graph is a nonempty adjacency list of outgoing edges with node IDs 0 through graph.length - 1. Each edge costs one. Return the minimum number of edges from start to target, 0 if start equals target, or -1 if unreachable. start and target are valid. Edges may form cycles; an edge is not automatically bidirectional.",
-    "starter": "function shortestPath(graph, start, target) {\n  // Write your solution here.\n}\n",
+    "fnName": "fewestHops",
+    "prompt": "graph is a nonempty adjacency list of directed edges (node IDs 0..length-1). Each edge costs one hop. Return the fewest hops from start to target, 0 if they are the same node, or -1 if unreachable. start and target are valid. Cycles are allowed; edges are not automatically bidirectional.",
+    "starter": "function fewestHops(graph, start, target) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
@@ -1840,43 +1823,43 @@ export const expansionProblems = [
     ]
   },
   {
-    "id": "dsa-spiral-matrix",
+    "id": "dsa-clockwise-unwind",
     "topic": "Matrices",
-    "title": "Spiral Matrix",
+    "title": "Clockwise Unwind",
     "difficulty": "medium",
-    "fnName": "spiralOrder",
-    "prompt": "Given a rectangular matrix of integers, return all values in clockwise spiral order, starting at the top-left corner and moving right. Process the outer boundary then continue inward. Return [] for [] or a matrix with no columns. Every row has the same length.",
-    "starter": "function spiralOrder(matrix) {\n  // Write your solution here.\n}\n",
+    "fnName": "clockwiseUnwind",
+    "prompt": "Given a rectangular grid of integers, return every value in clockwise spiral order starting at the top-left and moving right, then inward. Return [] for [] or a grid with no columns. Every row has the same length.",
+    "starter": "function clockwiseUnwind(grid) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
           [
             [
-              1,
-              2,
-              3
-            ],
-            [
-              4,
-              5,
-              6
-            ],
-            [
-              7,
+              9,
               8,
-              9
+              7
+            ],
+            [
+              6,
+              5,
+              4
+            ],
+            [
+              3,
+              2,
+              1
             ]
           ]
         ],
         "expected": [
-          1,
-          2,
-          3,
-          6,
           9,
           8,
           7,
           4,
+          1,
+          2,
+          3,
+          6,
           5
         ]
       },
@@ -1884,38 +1867,38 @@ export const expansionProblems = [
         "input": [
           [
             [
-              1,
               2,
-              3,
-              4
-            ],
-            [
-              5,
+              4,
               6,
-              7,
               8
             ],
             [
+              1,
+              3,
+              5,
+              7
+            ],
+            [
+              0,
               9,
-              10,
               11,
-              12
+              13
             ]
           ]
         ],
         "expected": [
-          1,
           2,
-          3,
           4,
-          8,
-          12,
-          11,
-          10,
-          9,
-          5,
           6,
-          7
+          8,
+          7,
+          13,
+          11,
+          9,
+          0,
+          1,
+          3,
+          5
         ]
       },
       {
@@ -1928,16 +1911,16 @@ export const expansionProblems = [
         "input": [
           [
             [
-              1,
-              2,
-              3
+              4,
+              5,
+              6
             ]
           ]
         ],
         "expected": [
-          1,
-          2,
-          3
+          4,
+          5,
+          6
         ],
         "hidden": true
       },
@@ -1945,20 +1928,20 @@ export const expansionProblems = [
         "input": [
           [
             [
-              1
+              4
             ],
             [
-              2
+              5
             ],
             [
-              3
+              6
             ]
           ]
         ],
         "expected": [
-          1,
-          2,
-          3
+          4,
+          5,
+          6
         ],
         "hidden": true
       },
@@ -1975,12 +1958,12 @@ export const expansionProblems = [
         "input": [
           [
             [
-              5
+              8
             ]
           ]
         ],
         "expected": [
-          5
+          8
         ],
         "hidden": true
       },
@@ -1989,41 +1972,41 @@ export const expansionProblems = [
           [
             [
               1,
-              2
+              3
             ],
             [
-              3,
-              4
+              5,
+              7
             ]
           ]
         ],
         "expected": [
           1,
-          2,
-          4,
-          3
+          3,
+          7,
+          5
         ],
         "hidden": true
       }
     ]
   },
   {
-    "id": "dsa-jump-game",
+    "id": "dsa-reach-final-index",
     "topic": "Greedy",
-    "title": "Jump Game",
+    "title": "Reach the Final Index",
     "difficulty": "medium",
-    "fnName": "canJump",
-    "prompt": "Given a nonempty array nums of nonnegative integers, start at index 0. nums[i] is the maximum number of positions you may jump forward from index i; you may choose a shorter jump. Return whether the final index is reachable. A single-element array is already at the final index.",
-    "starter": "function canJump(nums) {\n  // Write your solution here.\n}\n",
+    "fnName": "canReachFinal",
+    "prompt": "A nonempty list of nonnegative integers describes maximum forward jumps from each index (shorter jumps are allowed). Starting at index 0, return whether the last index is reachable. A one-element list is already there.",
+    "starter": "function canReachFinal(jumps) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
           [
-            2,
             3,
             1,
-            1,
-            4
+            0,
+            2,
+            0
           ]
         ],
         "expected": true
@@ -2031,11 +2014,11 @@ export const expansionProblems = [
       {
         "input": [
           [
-            3,
             2,
             1,
             0,
-            4
+            0,
+            3
           ]
         ],
         "expected": false
@@ -2052,7 +2035,7 @@ export const expansionProblems = [
         "input": [
           [
             0,
-            2
+            4
           ]
         ],
         "expected": false,
@@ -2061,7 +2044,7 @@ export const expansionProblems = [
       {
         "input": [
           [
-            2,
+            3,
             0,
             0
           ]
@@ -2074,7 +2057,7 @@ export const expansionProblems = [
           [
             1,
             0,
-            1
+            2
           ]
         ],
         "expected": false,
@@ -2084,7 +2067,7 @@ export const expansionProblems = [
         "input": [
           [
             2,
-            5,
+            4,
             0,
             0
           ]
@@ -2107,13 +2090,14 @@ export const expansionProblems = [
     ]
   },
   {
-    "id": "dsa-course-order",
+    "id": "dsa-task-dependency-order",
     "topic": "Graphs",
-    "title": "Course / Task Order",
+    "title": "Task Dependency Order",
     "difficulty": "medium",
-    "fnName": "findOrder",
-    "prompt": "Courses are numbered 0 through numCourses - 1. Each pair [course, prerequisite] means prerequisite must be completed first. Return any valid order containing every course exactly once, or [] if a cycle makes completion impossible. Include courses with no dependencies. Duplicate prerequisite pairs may appear. For numCourses = 0, return []. The shown expected order is an example; any order satisfying every prerequisite passes.",
-    "starter": "function findOrder(numCourses, prerequisites) {\n  // Write your solution here.\n}\n",
+    "fnName": "taskOrder",
+    "outputKind": "topological-order",
+    "prompt": "Tasks are numbered 0..taskCount-1. Each pair [task, prerequisite] means the prerequisite must finish first. Return any order that includes every task once, or [] if a cycle makes that impossible. Include independent tasks. Duplicate pairs may appear. For taskCount = 0 return []. Any valid topological order passes.",
+    "starter": "function taskOrder(taskCount, prerequisites) {\n  // Write your solution here.\n}\n",
     "tests": [
       {
         "input": [
@@ -2256,7 +2240,6 @@ export const expansionProblems = [
         ],
         "hidden": true
       }
-    ],
-    "outputKind": "topological-order"
+    ]
   }
 ];

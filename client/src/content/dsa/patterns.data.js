@@ -1,9 +1,11 @@
-// Local four-choice questions. Keep ids and exerciseId stable; group variants by exercise.
+// Local four-choice questions. Independently authored recognition prompts
+// paired with coding exercises. Technique ideas are common CS patterns;
+// wording and IDs are original to this project.
 export const patternQuestions = [
   {
-    "id": "pattern-two-sum",
+    "id": "pattern-matching-pair",
     "type": "single",
-    "prompt": "Given an unsorted array, return the indices of two numbers that add up to a target.",
+    "prompt": "A payment ledger lists amounts; you must return the two positions that sum to a required total. Which structure remembers prior values and their indices for complement lookup?",
     "options": [
       {
         "id": "a",
@@ -26,13 +28,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Store previously seen values and their indices in a Map; look up the complement before inserting each value.",
-    "exerciseId": "dsa-two-sum",
+    "exerciseId": "dsa-matching-pair",
     "mentalTrigger": "Need a value’s matching complement and its original index."
   },
   {
-    "id": "pattern-duplicates",
+    "id": "pattern-repeated-value",
     "type": "single",
-    "prompt": "Given an array, determine whether any value appears more than once.",
+    "prompt": "Sensor readings arrive in a list. You only need to know whether any reading appears more than once. Which membership structure fits?",
     "options": [
       {
         "id": "a",
@@ -55,13 +57,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "A Set tracks seen values. Encountering a value already present proves a duplicate exists.",
-    "exerciseId": "dsa-contains-duplicate",
+    "exerciseId": "dsa-any-repeated-value",
     "mentalTrigger": "Need membership only: have I seen this value before?"
   },
   {
-    "id": "pattern-brackets",
+    "id": "pattern-balanced-brackets",
     "type": "single",
-    "prompt": "Given a string of brackets, determine whether the brackets are valid and closed in the correct order.",
+    "prompt": "A config string uses (), [], and {}. You must verify every opener is closed by the matching type in correct nesting order. Which structure holds unmatched openers?",
     "options": [
       {
         "id": "a",
@@ -84,13 +86,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Push opening brackets and match each closing bracket against the most recent opening bracket.",
-    "exerciseId": "dsa-valid-parentheses",
+    "exerciseId": "dsa-balanced-brackets",
     "mentalTrigger": "Need to match the most recent unmatched opening bracket."
   },
   {
-    "id": "pattern-fifo",
+    "id": "pattern-fifo-ops",
     "type": "single",
-    "prompt": "Process items in FIFO order, where the oldest item is processed first.",
+    "prompt": "A ticket desk processes enqueue, dequeue, peek, and empty operations in arrival order. Which structure models that FIFO workflow?",
     "options": [
       {
         "id": "a",
@@ -113,13 +115,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Use the simple queue representation: enqueue at the back and dequeue from the front. No custom queue design is required.",
-    "exerciseId": "dsa-queue-processing",
+    "exerciseId": "dsa-fifo-ops",
     "mentalTrigger": "Need the oldest waiting item first: FIFO."
   },
   {
-    "id": "pattern-stock-profit",
+    "id": "pattern-single-trade",
     "type": "single",
-    "prompt": "Given stock prices, return the maximum profit from buying once and selling once later.",
+    "prompt": "Daily quotes arrive in order. You may buy once and sell once later. Which one-pass pattern tracks the best earlier price and best profit so far?",
     "options": [
       {
         "id": "a",
@@ -142,13 +144,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Track the lowest price seen so far and the best profit from selling at the current price.",
-    "exerciseId": "dsa-max-profit",
+    "exerciseId": "dsa-single-trade-peak",
     "mentalTrigger": "Need the best earlier price and best profit while scanning once."
   },
   {
-    "id": "pattern-sorted-two-sum",
+    "id": "pattern-sorted-pair",
     "type": "single",
-    "prompt": "Given a sorted array, find two numbers that add up to a target.",
+    "prompt": "A sorted ledger must yield a pair of positions whose amounts sum to a total. Which two-end scan adjusts based on whether the current sum is too small or too large?",
     "options": [
       {
         "id": "a",
@@ -171,13 +173,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Start at opposite ends. Move the left pointer when the sum is too small and the right pointer when it is too large.",
-    "exerciseId": "dsa-two-sum-ii",
+    "exerciseId": "dsa-pair-from-sorted-ledger",
     "mentalTrigger": "Need a pair sum in sorted data: work inward from both ends."
   },
   {
-    "id": "pattern-min-window",
+    "id": "pattern-shortest-stretch",
     "type": "single",
-    "prompt": "Given an array of positive integers, find the minimum length contiguous subarray whose sum is at least the target.",
+    "prompt": "Positive values form a list and you need the shortest contiguous stretch whose sum meets a threshold. Which growing/shrinking window pattern fits?",
     "options": [
       {
         "id": "a",
@@ -200,13 +202,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Expand the right edge, then shrink the left edge while the sum meets the target. Positive values make these adjustments predictable.",
-    "exerciseId": "dsa-min-subarray-length",
+    "exerciseId": "dsa-shortest-qualifying-stretch",
     "mentalTrigger": "Need a growing/shrinking positive-sum range that meets a threshold."
   },
   {
-    "id": "pattern-binary-search",
+    "id": "pattern-ordered-locate",
     "type": "single",
-    "prompt": "Given a sorted array and target, return the target index or -1.",
+    "prompt": "A sorted list must return the index of a needle, or -1 if absent, in logarithmic time. Which search pattern repeatedly discards half the range?",
     "options": [
       {
         "id": "a",
@@ -229,13 +231,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Compare with the middle element and discard the half that cannot contain the target.",
-    "exerciseId": "dsa-binary-search",
+    "exerciseId": "dsa-locate-in-ordered-list",
     "mentalTrigger": "Need to halve a sorted search range."
   },
   {
-    "id": "pattern-prefix-sum",
+    "id": "pattern-range-totals",
     "type": "single",
-    "prompt": "Build prefix sums so multiple left-to-right range sum queries can be answered quickly.",
+    "prompt": "An unchanged integer list will receive many inclusive range-total queries. Which preprocessing pattern answers each query in constant time?",
     "options": [
       {
         "id": "a",
@@ -258,17 +260,17 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Store cumulative sums once. An inclusive range sum is prefix[right + 1] minus prefix[left].",
-    "exerciseId": "dsa-range-sums",
+    "exerciseId": "dsa-range-total-queries",
     "mentalTrigger": "Need repeated range totals from cumulative sums."
   },
   {
-    "id": "pattern-merge-intervals",
+    "id": "pattern-collapse-overlaps",
     "type": "single",
-    "prompt": "Given overlapping intervals, merge all overlapping intervals.",
+    "prompt": "Calendar spans may overlap or touch. After ordering by start, which sweep merges them into a minimal covering list?",
     "options": [
       {
         "id": "a",
-        "text": "Merge Intervals / Sort + Sweep"
+        "text": "Collapse Overlaps / Sort + Sweep"
       },
       {
         "id": "b",
@@ -287,13 +289,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Sort by start time, then extend the current interval when the next interval overlaps it.",
-    "exerciseId": "dsa-merge-intervals",
+    "exerciseId": "dsa-collapse-overlaps",
     "mentalTrigger": "Need to combine overlapping ranges after ordering their starts."
   },
   {
-    "id": "pattern-linked-list-cycle",
+    "id": "pattern-loop-in-chain",
     "type": "single",
-    "prompt": "Given a linked list, determine whether it contains a cycle using O(1) extra space.",
+    "prompt": "A singly linked chain may reconnect onto an earlier node. Which constant-space technique detects that loop using two differently paced references?",
     "options": [
       {
         "id": "a",
@@ -309,24 +311,24 @@ export const patternQuestions = [
       },
       {
         "id": "d",
-        "text": "Reverse Linked List"
+        "text": "Flip Chain / In-Place Reverse"
       }
     ],
     "correct": [
       "a"
     ],
     "explanation": "Move one pointer one node per step and another two. They meet inside a cycle; reaching the end means no cycle.",
-    "exerciseId": "dsa-linked-list-cycle",
+    "exerciseId": "dsa-loop-in-chain",
     "mentalTrigger": "Need constant-space linked-list cycle detection using different pointer speeds."
   },
   {
-    "id": "pattern-reverse-list",
+    "id": "pattern-flip-chain",
     "type": "single",
-    "prompt": "Reverse a singly linked list in place.",
+    "prompt": "An acyclic node chain must be reversed in place by rewiring next links. Which previous/current/next walk fits?",
     "options": [
       {
         "id": "a",
-        "text": "Reverse Linked List"
+        "text": "Flip Chain / In-Place Reverse"
       },
       {
         "id": "b",
@@ -345,13 +347,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Keep previous, current, and next references. Redirect each next pointer to the previous node, then advance.",
-    "exerciseId": "dsa-reverse-linked-list",
+    "exerciseId": "dsa-flip-chain",
     "mentalTrigger": "Need to rewire the original next links with previous/current/next references."
   },
   {
-    "id": "pattern-preorder",
+    "id": "pattern-node-left-right",
     "type": "single",
-    "prompt": "Traverse a binary tree in preorder: node, left, right.",
+    "prompt": "A binary tree report must emit each node before its left subtree and then its right subtree. Which traversal order is that?",
     "options": [
       {
         "id": "a",
@@ -374,13 +376,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Visit the current node before recursively traversing its left and right subtrees.",
-    "exerciseId": "dsa-tree-preorder",
+    "exerciseId": "dsa-node-left-right-walk",
     "mentalTrigger": "Need node, then left branch, then right branch."
   },
   {
-    "id": "pattern-level-order",
+    "id": "pattern-level-by-level",
     "type": "single",
-    "prompt": "Return the nodes of a binary tree level by level.",
+    "prompt": "You need tree values grouped by depth from the root downward. Which breadth-first pattern processes one level at a time?",
     "options": [
       {
         "id": "a",
@@ -403,13 +405,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Use a queue, processing the current level before moving to the children at the next level.",
-    "exerciseId": "dsa-tree-level-order",
+    "exerciseId": "dsa-level-by-level-walk",
     "mentalTrigger": "Need tree values grouped by depth."
   },
   {
-    "id": "pattern-graph-dfs",
+    "id": "pattern-deep-graph",
     "type": "single",
-    "prompt": "Given a graph, visit every reachable node by exploring one path deeply before backing up.",
+    "prompt": "From a start node in an adjacency list, explore one unvisited neighbor chain fully before backing up. Which graph traversal is that?",
     "options": [
       {
         "id": "a",
@@ -432,13 +434,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Use recursion or a stack and mark visited nodes to avoid repeatedly exploring cycles.",
-    "exerciseId": "dsa-graph-dfs",
+    "exerciseId": "dsa-deep-graph-walk",
     "mentalTrigger": "Need to explore one graph path deeply before backing up."
   },
   {
-    "id": "pattern-islands",
+    "id": "pattern-landmass",
     "type": "single",
-    "prompt": "Given a grid of 1s and 0s, count the number of connected islands.",
+    "prompt": "A coastal grid marks land versus water; land connects only orthogonally. Which flood-fill pattern counts separate landmasses?",
     "options": [
       {
         "id": "a",
@@ -454,20 +456,20 @@ export const patternQuestions = [
       },
       {
         "id": "d",
-        "text": "Spiral Matrix / Boundary Pointers"
+        "text": "Clockwise Unwind / Boundary Pointers"
       }
     ],
     "correct": [
       "a"
     ],
     "explanation": "Start a flood fill at each unvisited land cell and mark its connected land. Each new flood fill counts one island.",
-    "exerciseId": "dsa-num-islands",
+    "exerciseId": "dsa-landmass-count",
     "mentalTrigger": "Need to flood-fill and count connected land regions."
   },
   {
-    "id": "pattern-permutations",
+    "id": "pattern-all-arrangements",
     "type": "single",
-    "prompt": "Given a list of distinct numbers, return all possible permutations.",
+    "prompt": "Distinct values must produce every arrangement exactly once via choose, explore, and undo. Which search pattern fits?",
     "options": [
       {
         "id": "a",
@@ -483,20 +485,20 @@ export const patternQuestions = [
       },
       {
         "id": "d",
-        "text": "Jump Game / Greedy"
+        "text": "Reach Final Index / Greedy"
       }
     ],
     "correct": [
       "a"
     ],
     "explanation": "Choose an unused number, explore that choice, then undo it so other permutations can be generated.",
-    "exerciseId": "dsa-permutations",
+    "exerciseId": "dsa-all-arrangements",
     "mentalTrigger": "Need every arrangement: choose, explore, undo."
   },
   {
-    "id": "pattern-top-k",
+    "id": "pattern-k-biggest",
     "type": "single",
-    "prompt": "Given an array, return the K largest values without sorting the entire array.",
+    "prompt": "From a large list you need the K biggest values without fully sorting. Which structure repeatedly exposes the current minimum retained candidate?",
     "options": [
       {
         "id": "a",
@@ -519,13 +521,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Keep a min-heap of at most K values. Remove its smallest value whenever the heap grows beyond K.",
-    "exerciseId": "dsa-top-k-largest",
+    "exerciseId": "dsa-k-biggest-values",
     "mentalTrigger": "Need to retain the best K candidates using repeated minimum access."
   },
   {
-    "id": "pattern-temperatures",
+    "id": "pattern-days-until-warmer",
     "type": "single",
-    "prompt": "For each temperature, return how many days until a warmer temperature appears.",
+    "prompt": "For each daily reading, return how many days until a strictly higher reading appears later. Which stack resolves pending earlier days?",
     "options": [
       {
         "id": "a",
@@ -548,13 +550,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Keep unresolved indices in decreasing temperature order. A warmer day resolves indices popped from the stack.",
-    "exerciseId": "dsa-daily-temperatures",
+    "exerciseId": "dsa-days-until-warmer",
     "mentalTrigger": "Need to resolve pending days when a strictly warmer value arrives."
   },
   {
-    "id": "pattern-stairs",
+    "id": "pattern-step-combinations",
     "type": "single",
-    "prompt": "Given n stairs, count how many ways you can reach the top taking 1 or 2 steps.",
+    "prompt": "A staircase allows steps of size 1 or 2; ways to reach step i reuse the two previous counts. Which DP pattern fits?",
     "options": [
       {
         "id": "a",
@@ -577,25 +579,25 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Ways to reach step n equal ways to reach n - 1 plus ways to reach n - 2. Retain the two previous counts.",
-    "exerciseId": "dsa-climbing-stairs",
+    "exerciseId": "dsa-step-combinations",
     "mentalTrigger": "Need a count built from the previous two smaller counts."
   },
   {
-    "id": "pattern-house-robber",
+    "id": "pattern-skip-adjacent",
     "type": "single",
-    "prompt": "Given money in houses, return the maximum amount without robbing adjacent houses.",
+    "prompt": "Along a row of rewards, maximizing the total forbids taking two neighbors. Which take-or-skip DP pattern fits?",
     "options": [
       {
         "id": "a",
-        "text": "House Robber"
+        "text": "Skip-Adjacent Loot / DP"
       },
       {
         "id": "b",
-        "text": "Coin Change"
+        "text": "Fewest Tokens / Unbounded DP"
       },
       {
         "id": "c",
-        "text": "Jump Game / Greedy"
+        "text": "Reach Final Index / Greedy"
       },
       {
         "id": "d",
@@ -606,17 +608,17 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "At each house, compare skipping it with taking its money plus the best total ending at least two houses earlier.",
-    "exerciseId": "dsa-house-robber",
+    "exerciseId": "dsa-skip-adjacent-loot",
     "mentalTrigger": "Need maximum value from non-adjacent selections: take or skip."
   },
   {
-    "id": "pattern-coin-change",
+    "id": "pattern-fewest-tokens",
     "type": "single",
-    "prompt": "Given coin denominations and an amount, return the fewest coins needed to make the amount.",
+    "prompt": "Unlimited token denominations must reach an exact total with as few tokens as possible. Which unbounded DP pattern fits?",
     "options": [
       {
         "id": "a",
-        "text": "Coin Change"
+        "text": "Fewest Tokens / Unbounded DP"
       },
       {
         "id": "b",
@@ -624,7 +626,7 @@ export const patternQuestions = [
       },
       {
         "id": "c",
-        "text": "House Robber"
+        "text": "Skip-Adjacent Loot / DP"
       },
       {
         "id": "d",
@@ -635,13 +637,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Build minimum counts for smaller amounts, using each coin as a possible last coin. Unreachable amounts remain impossible; assume positive denominations with unlimited supply.",
-    "exerciseId": "dsa-coin-change",
+    "exerciseId": "dsa-fewest-tokens",
     "mentalTrigger": "Need the fewest reusable denominations for an exact amount."
   },
   {
-    "id": "pattern-trie",
+    "id": "pattern-prefix-lexicon",
     "type": "single",
-    "prompt": "Implement insert, full-word search, and prefix search for a collection of words.",
+    "prompt": "A word collection needs insert, exact search, and shared-prefix checks via character paths. Which tree structure fits?",
     "options": [
       {
         "id": "a",
@@ -664,13 +666,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Store characters along shared paths. An end-of-word marker distinguishes a complete word from a prefix.",
-    "exerciseId": "dsa-trie",
+    "exerciseId": "dsa-prefix-lexicon",
     "mentalTrigger": "Need shared character paths for word and prefix lookup."
   },
   {
-    "id": "pattern-union-find",
+    "id": "pattern-disjoint-groups",
     "type": "single",
-    "prompt": "Given nodes and connections, repeatedly union groups and determine connected components / group membership.",
+    "prompt": "Nodes start alone; unions merge groups and connectivity queries ask whether two share a group. Which structure fits?",
     "options": [
       {
         "id": "a",
@@ -693,13 +695,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Each group has a representative. Union merges groups and find identifies a node’s current representative.",
-    "exerciseId": "dsa-union-find",
+    "exerciseId": "dsa-disjoint-groups",
     "mentalTrigger": "Need repeated group merges and connectivity checks."
   },
   {
-    "id": "pattern-single-number",
+    "id": "pattern-lone-survivor",
     "type": "single",
-    "prompt": "Every number appears twice except one. Return the single number using O(1) extra space.",
+    "prompt": "Every value appears twice except one. Which constant-space bit operation cancels equal pairs?",
     "options": [
       {
         "id": "a",
@@ -722,13 +724,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "XOR cancels equal pairs because x XOR x is zero and x XOR zero is x.",
-    "exerciseId": "dsa-single-number",
+    "exerciseId": "dsa-lone-survivor",
     "mentalTrigger": "Need equal integer pairs to cancel, leaving one unmatched value."
   },
   {
-    "id": "pattern-shortest-path",
+    "id": "pattern-fewest-hops",
     "type": "single",
-    "prompt": "Given an unweighted graph, return the shortest number of edges from start to target.",
+    "prompt": "Every directed edge costs one hop. Which search finds the fewest hops from start to target?",
     "options": [
       {
         "id": "a",
@@ -751,17 +753,17 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "BFS explores nodes in increasing edge distance. The first visit to the target gives a shortest path length.",
-    "exerciseId": "dsa-graph-shortest-path",
+    "exerciseId": "dsa-unweighted-shortest-hops",
     "mentalTrigger": "Need the fewest edges in an unweighted graph."
   },
   {
-    "id": "pattern-spiral",
+    "id": "pattern-clockwise-unwind",
     "type": "single",
-    "prompt": "Return all values of a matrix in spiral order.",
+    "prompt": "A rectangular grid must be read clockwise from the outside inward. Which boundary-pointer pattern fits?",
     "options": [
       {
         "id": "a",
-        "text": "Spiral Matrix / Boundary Pointers"
+        "text": "Clockwise Unwind / Boundary Pointers"
       },
       {
         "id": "b",
@@ -780,25 +782,25 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Track top, bottom, left, and right bounds. Traverse each remaining edge and shrink the bounds, checking for an exhausted row or column.",
-    "exerciseId": "dsa-spiral-matrix",
+    "exerciseId": "dsa-clockwise-unwind",
     "mentalTrigger": "Need to peel matrix boundaries inward in clockwise order."
   },
   {
-    "id": "pattern-jump-game",
+    "id": "pattern-reach-final",
     "type": "single",
-    "prompt": "Each array value is the maximum jump distance. Determine whether the final index is reachable.",
+    "prompt": "Each index stores a maximum forward jump. Which greedy farthest-reach scan decides whether the last index is reachable?",
     "options": [
       {
         "id": "a",
-        "text": "Jump Game / Greedy"
+        "text": "Reach Final Index / Greedy"
       },
       {
         "id": "b",
-        "text": "House Robber"
+        "text": "Skip-Adjacent Loot / DP"
       },
       {
         "id": "c",
-        "text": "Coin Change"
+        "text": "Fewest Tokens / Unbounded DP"
       },
       {
         "id": "d",
@@ -809,13 +811,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Track the farthest reachable index. An index beyond that reach is a gap; otherwise extend reach with its jump distance.",
-    "exerciseId": "dsa-jump-game",
+    "exerciseId": "dsa-reach-final-index",
     "mentalTrigger": "Need the farthest reachable index so far."
   },
   {
-    "id": "pattern-majority",
+    "id": "pattern-dominant-vote",
     "type": "single",
-    "prompt": "Given an array where one value appears more than n / 2 times, return the majority element.",
+    "prompt": "One value is guaranteed to appear more than half the time. Which constant-space voting technique finds it?",
     "options": [
       {
         "id": "a",
@@ -838,13 +840,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Maintain a candidate and vote count, canceling different values. The guaranteed majority survives the cancellations.",
-    "exerciseId": "dsa-majority-element",
+    "exerciseId": "dsa-dominant-vote",
     "mentalTrigger": "Need a guaranteed strict majority using candidate/vote cancellation."
   },
   {
-    "id": "pattern-max-subarray",
+    "id": "pattern-best-contiguous",
     "type": "single",
-    "prompt": "Return the maximum sum of a contiguous subarray.",
+    "prompt": "Daily deltas may be negative. Which one-pass pattern tracks the best contiguous sum by extending or restarting?",
     "options": [
       {
         "id": "a",
@@ -856,7 +858,7 @@ export const patternQuestions = [
       },
       {
         "id": "c",
-        "text": "House Robber"
+        "text": "Skip-Adjacent Loot / DP"
       },
       {
         "id": "d",
@@ -867,13 +869,13 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "At each value, choose between extending the previous subarray and starting anew. Track the best sum; initialize from the first value for a nonempty array.",
-    "exerciseId": "dsa-max-subarray",
+    "exerciseId": "dsa-best-contiguous-gain",
     "mentalTrigger": "Need the best contiguous sum: extend or restart."
   },
   {
-    "id": "pattern-topological-sort",
+    "id": "pattern-task-order",
     "type": "single",
-    "prompt": "Given courses/tasks and prerequisites, return a valid order in which they can be completed.",
+    "prompt": "Tasks have directed prerequisites. Which ordering places every prerequisite before its dependents, or detects a cycle?",
     "options": [
       {
         "id": "a",
@@ -896,17 +898,17 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Repeatedly process nodes with no remaining prerequisites, or use DFS finishing order. A directed cycle prevents a valid ordering.",
-    "exerciseId": "dsa-course-order",
+    "exerciseId": "dsa-task-dependency-order",
     "mentalTrigger": "Need tasks ordered so every prerequisite comes first."
   },
   {
-    "id": "pattern-word-break",
+    "id": "pattern-phrase-catalog",
     "type": "single",
-    "prompt": "Given a string and dictionary, determine whether the string can be split into valid dictionary words.",
+    "prompt": "A continuous string must be covered by concatenating catalog words. Which string DP tracks which prefixes can be assembled?",
     "options": [
       {
         "id": "a",
-        "text": "Word Break / String DP"
+        "text": "Phrase Assembly / String DP"
       },
       {
         "id": "b",
@@ -925,14 +927,14 @@ export const patternQuestions = [
       "a"
     ],
     "explanation": "Track which string prefixes can be segmented. A prefix is valid when an earlier valid prefix is followed by a dictionary word.",
-    "exerciseId": "dsa-word-break",
+    "exerciseId": "dsa-phrase-from-catalog",
     "mentalTrigger": "Need to track which string prefixes can be split into dictionary words."
   },
   {
-    "id": "pattern-reverse-string",
+    "id": "pattern-flip-message",
     "type": "single",
-    "exerciseId": "dsa-reverse-string",
-    "prompt": "Given a string, return a new string with its characters in the opposite order.",
+    "exerciseId": "dsa-flip-message",
+    "prompt": "A message string must be returned with characters in reverse order. Which linear scan fits?",
     "options": [
       {
         "id": "a",
@@ -958,10 +960,10 @@ export const patternQuestions = [
     "mentalTrigger": "You need to emit the characters of a string from last to first. Which operation fits?"
   },
   {
-    "id": "pattern-fizzbuzz",
+    "id": "pattern-label-count",
     "type": "single",
-    "exerciseId": "dsa-fizzbuzz",
-    "prompt": "Generate strings for 1 through n, replacing multiples of 3 with Fizz, multiples of 5 with Buzz, and multiples of both with FizzBuzz. Which technique identifies the replacement cases?",
+    "exerciseId": "dsa-label-count",
+    "prompt": "Numbers 1..n are labeled by divisibility rules (Fizz/Buzz). Which technique classifies each integer?",
     "options": [
       {
         "id": "a",
@@ -987,10 +989,10 @@ export const patternQuestions = [
     "mentalTrigger": "You must classify integers by whether division leaves a zero remainder. Which technique fits?"
   },
   {
-    "id": "pattern-valid-anagram",
+    "id": "pattern-letter-inventory",
     "type": "single",
-    "exerciseId": "dsa-valid-anagram",
-    "prompt": "Given two strings, determine whether they contain exactly the same characters with the same counts. Which structure tracks the frequencies needed?",
+    "exerciseId": "dsa-same-letter-inventory",
+    "prompt": "Two words are rearrangements only if letter multiplicities match. Which structure tracks frequencies?",
     "options": [
       {
         "id": "a",
@@ -1016,10 +1018,10 @@ export const patternQuestions = [
     "mentalTrigger": "Two strings contain the same distinct letters, but you also need their multiplicities to match. Which structure stores those counts?"
   },
   {
-    "id": "pattern-valid-palindrome",
+    "id": "pattern-mirrored-phrase",
     "type": "single",
-    "exerciseId": "dsa-valid-palindrome",
-    "prompt": "Check whether a string reads the same forward and backward, ignoring case and non-alphanumeric characters. Which technique compares inward from both ends with constant extra space?",
+    "exerciseId": "dsa-mirrored-phrase",
+    "prompt": "A phrase must read the same forward and backward after ignoring case and non-alphanumerics. Which inward two-pointer scan fits?",
     "options": [
       {
         "id": "a",
@@ -1045,10 +1047,10 @@ export const patternQuestions = [
     "mentalTrigger": "You compare the leftmost and rightmost meaningful characters, skipping punctuation and moving inward. Which technique fits?"
   },
   {
-    "id": "pattern-fibonacci",
+    "id": "pattern-sequence-term",
     "type": "single",
-    "exerciseId": "dsa-fibonacci",
-    "prompt": "Compute fib(n), with fib(0) = 0 and fib(1) = 1, by reusing the two previous Fibonacci values. Which general pattern fits?",
+    "exerciseId": "dsa-sequence-term",
+    "prompt": "Each term is the sum of the previous two. Which rolling-state pattern computes term n without exponential recursion?",
     "options": [
       {
         "id": "a",
@@ -1074,10 +1076,10 @@ export const patternQuestions = [
     "mentalTrigger": "Each sequence value is the sum of the previous two, and naive recursion repeatedly solves identical states. Which general pattern avoids that repetition?"
   },
   {
-    "id": "pattern-palindrome-number",
+    "id": "pattern-digit-mirror",
     "type": "single",
-    "exerciseId": "dsa-palindrome-number",
-    "prompt": "Check whether an integer is a palindrome without converting it to a string, using digit extraction and reversing only its lower half. Which technique fits?",
+    "exerciseId": "dsa-digit-mirror",
+    "prompt": "An integer is a digit mirror if reversing its digits yields the same value. Which half-digit reversal technique fits?",
     "options": [
       {
         "id": "a",
@@ -1103,14 +1105,14 @@ export const patternQuestions = [
     "mentalTrigger": "You repeatedly take x % 10 and shorten x with integer division, building the reversed lower half of its digits. Which technique is this?"
   },
   {
-    "id": "pattern-missing-number",
+    "id": "pattern-absent-slot",
     "type": "single",
-    "exerciseId": "dsa-missing-number",
-    "prompt": "An array contains n distinct integers from 0 through n with one missing. Which technique subtracts the actual total from n * (n + 1) / 2?",
+    "exerciseId": "dsa-absent-slot",
+    "prompt": "Exactly one value is missing from 0..n. Which technique compares the expected arithmetic total to the actual sum?",
     "options": [
       {
         "id": "a",
-        "text": "Arithmetic Sum / Missing Number"
+        "text": "Arithmetic Sum / Absent Slot"
       },
       {
         "id": "b",
@@ -1128,14 +1130,14 @@ export const patternQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Arithmetic Sum / Missing Number uses expected minus actual total. The distinct-values and exactly-one-missing assumptions matter. XOR is another valid approach, but this question specifies sums.",
+    "explanation": "Arithmetic Sum / Absent Slot uses expected minus actual total. The distinct-values and exactly-one-missing assumptions matter. XOR is another valid approach, but this question specifies sums.",
     "mentalTrigger": "Exactly one value is missing from a complete consecutive integer range. You compare the range’s expected total with its actual total. Which technique fits?"
   },
   {
-    "id": "pattern-move-zeroes",
+    "id": "pattern-slide-zeros",
     "type": "single",
-    "exerciseId": "dsa-move-zeroes",
-    "prompt": "Move all zeroes to the end of the original array in place, preserving the order of non-zero values and using O(1) extra space. Which technique uses separate read and write indices?",
+    "exerciseId": "dsa-slide-zeros-back",
+    "prompt": "Zeros must move to the end of the same array while preserving non-zero order in O(1) extra space. Which read/write index technique fits?",
     "options": [
       {
         "id": "a",
@@ -1161,10 +1163,10 @@ export const patternQuestions = [
     "mentalTrigger": "You scan with a read index and copy each non-zero value into the next write slot of the same array, then overwrite the remaining slots with zeroes. Which technique fits?"
   },
   {
-    "id": "pattern-product-except-self",
+    "id": "pattern-neighbor-products",
     "type": "single",
-    "exerciseId": "dsa-product-except-self",
-    "prompt": "For each array index, return the product of every other element, without division. Which technique combines products from the left and right?",
+    "exerciseId": "dsa-neighbor-product-map",
+    "prompt": "Each output index needs the product of every other entry without division. Which prefix/suffix product pattern fits?",
     "options": [
       {
         "id": "a",
@@ -1190,10 +1192,10 @@ export const patternQuestions = [
     "mentalTrigger": "Each output needs the product before its index multiplied by the product after it. Which technique avoids dividing by the current value?"
   },
   {
-    "id": "pattern-longest-substring",
+    "id": "pattern-unique-window",
     "type": "single",
-    "exerciseId": "dsa-longest-substring",
-    "prompt": "Find the longest contiguous substring with no repeated characters. Which range-management pattern expands right and moves left when a repeat enters?",
+    "exerciseId": "dsa-longest-unique-window",
+    "prompt": "Find the longest contiguous slice with all unique characters. Which sliding window expands right and advances left on repeats?",
     "options": [
       {
         "id": "a",
@@ -1219,10 +1221,10 @@ export const patternQuestions = [
     "mentalTrigger": "You grow a substring until its uniqueness rule fails, then move the left boundary past the conflicting occurrence. Which range-management pattern fits?"
   },
   {
-    "id": "pattern-trapping-rain-water",
+    "id": "pattern-basin-capacity",
     "type": "single",
-    "exerciseId": "dsa-trapping-rain-water",
-    "prompt": "Given unit-width elevation bars, compute trapped rainwater using left/right indices and running left/right maximum heights, processing the shorter boundary first. Which technique fits?",
+    "exerciseId": "dsa-basin-capacity",
+    "prompt": "Unit-width elevation bars trap rainwater between higher walls. Which two-pointer shorter-boundary scan fits?",
     "options": [
       {
         "id": "a",
@@ -1248,14 +1250,14 @@ export const patternQuestions = [
     "mentalTrigger": "You scan inward from both ends of an elevation array and use the shorter boundary’s running maximum to count trapped water. Which technique fits?"
   },
   {
-    "id": "pattern-min-stack",
+    "id": "pattern-floor-stack",
     "type": "single",
-    "exerciseId": "dsa-min-stack",
-    "prompt": "Design a stack with push, pop, top, and getMin in O(1) time per operation. Which approach keeps a synchronized minimum for each stack depth?",
+    "exerciseId": "dsa-floor-tracking-stack",
+    "prompt": "A stack must support push, pop, top, and current minimum in O(1). Which auxiliary running-minimum design fits?",
     "options": [
       {
         "id": "a",
-        "text": "Min Stack / Auxiliary Min Stack"
+        "text": "Floor Stack / Auxiliary Min Stack"
       },
       {
         "id": "b",
@@ -1273,18 +1275,18 @@ export const patternQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Min Stack / Auxiliary Min Stack stores a running minimum for each depth. Popping restores the preceding minimum, including duplicate minima. A monotonic stack typically discards candidates and serves a different purpose.",
+    "explanation": "Floor Stack / Auxiliary Min Stack stores a running minimum for each depth. Popping restores the preceding minimum, including duplicate minima. A monotonic stack typically discards candidates and serves a different purpose.",
     "mentalTrigger": "After popping the smallest stack value, you need to recover the previous minimum immediately. Which structure remembers a minimum at every depth?"
   },
   {
-    "id": "pattern-my-queue",
+    "id": "pattern-dual-stack-fifo",
     "type": "single",
-    "exerciseId": "dsa-my-queue",
-    "prompt": "Implement FIFO queue operations when only stack-style push and pop operations are available. Which design pours incoming values into an outgoing stack?",
+    "exerciseId": "dsa-fifo-from-two-stacks",
+    "prompt": "FIFO behavior must be built from stack-only push/pop. Which dual-stack pour design fits?",
     "options": [
       {
         "id": "a",
-        "text": "Queue Using Two Stacks"
+        "text": "FIFO From Two Stacks"
       },
       {
         "id": "b",
@@ -1302,14 +1304,14 @@ export const patternQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Queue Using Two Stacks reverses incoming values into an output stack only when that stack is empty. This preserves FIFO order and gives amortized O(1) operations.",
+    "explanation": "FIFO From Two Stacks reverses incoming values into an output stack only when that stack is empty. This preserves FIFO order and gives amortized O(1) operations.",
     "mentalTrigger": "You need oldest-first behavior using only last-in, first-out containers. Which design reverses incoming items into a second stack?"
   },
   {
-    "id": "pattern-my-hashmap",
+    "id": "pattern-simple-key-store",
     "type": "single",
-    "exerciseId": "dsa-my-hashmap",
-    "prompt": "Design a structure with put(key, value), get(key), and remove(key), retaining a value associated with each key. Which abstract data structure are you implementing?",
+    "exerciseId": "dsa-simple-key-store",
+    "prompt": "You need put, get, and remove for key/value pairs without using a built-in Map. Which abstract structure are you implementing?",
     "options": [
       {
         "id": "a",
@@ -1335,14 +1337,14 @@ export const patternQuestions = [
     "mentalTrigger": "You need key-based insertion, replacement, lookup, and deletion of associated values. Which abstract structure fits?"
   },
   {
-    "id": "pattern-lru-cache",
+    "id": "pattern-bounded-recent",
     "type": "single",
-    "exerciseId": "dsa-lru-cache",
-    "prompt": "Design a fixed-capacity cache where successful reads and writes make an entry most recent, and overflow evicts the least recently used key. Which policy and pattern fits?",
+    "exerciseId": "dsa-bounded-recent-cache",
+    "prompt": "A fixed-capacity cache must evict the least recently used entry; gets and puts refresh recency. Which policy fits?",
     "options": [
       {
         "id": "a",
-        "text": "LRU Cache / Recency Tracking"
+        "text": "Bounded Recent Cache / Recency Tracking"
       },
       {
         "id": "b",
@@ -1360,7 +1362,7 @@ export const patternQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "LRU Cache / Recency Tracking updates recency on successful get and put. An insertion-ordered Map can delete and reinsert a key to refresh it; a Map plus a doubly linked list is another design.",
+    "explanation": "Bounded Recent Cache / Recency Tracking updates recency on successful get and put. An insertion-ordered Map can delete and reinsert a key to refresh it; a Map plus a doubly linked list is another design.",
     "mentalTrigger": "Cache eviction must follow last access time rather than insertion age, and reading a key refreshes its position. Which pattern fits?"
   }
 ];

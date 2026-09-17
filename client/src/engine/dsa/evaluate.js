@@ -7,7 +7,7 @@
 //    { input: [...args], expected }.
 //  - "design": user defines a class `className`; each test has
 //    { ops: string[], args: any[][], expected: any[] } where ops[0] is the
-//    constructor name and the rest are method calls (LeetCode-style).
+//    constructor name and the rest are method calls (ops/args/expected sequence).
 
 import { prepareInput, inspectReversedList } from "./fixtures.js";
 

@@ -31,7 +31,7 @@ export const tipsByProblemId = {
     space: "O(1) — running integer cents",
   },
 
-  "rw-rt-unique-emails": {
+  "rw-rt-distinct-mailboxes": {
     steps: [
       "A Set of the raw strings only drops exact duplicates.",
       "\"A@x.com\" and \"a@x.com\" are the same mailbox after normalize, but they are different Set keys.",
@@ -40,7 +40,7 @@ export const tipsByProblemId = {
       "Stuck? Reveal the reference fix below.",
     ],
     solution:
-      "function uniqueEmails(emails) {\n  const seen = new Set();\n  const out = [];\n  for (const raw of emails) {\n    const email = raw.trim().toLowerCase();\n    if (seen.has(email)) continue;\n    seen.add(email);\n    out.push(email);\n  }\n  return out;\n}\n",
+      "function distinctMailboxes(addresses) {\n  const seen = new Set();\n  const out = [];\n  for (const raw of addresses) {\n    const email = raw.trim().toLowerCase();\n    if (seen.has(email)) continue;\n    seen.add(email);\n    out.push(email);\n  }\n  return out;\n}\n",
     time: "O(n) — one pass, Set lookups",
     space: "O(n) — seen set and output",
   },

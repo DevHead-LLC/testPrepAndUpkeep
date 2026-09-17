@@ -133,9 +133,9 @@ export const courseSections = [
   },
   {
     id: "storage-extras",
-    name: "Module 13: Storage Add-Ons (Snow, FSx, Gateway)",
+    name: "Module 13: Storage Add-Ons (Transfer, FSx, Gateway)",
     subtopics: [
-      { id: "snow", name: "AWS Snow Family" },
+      { id: "data-transfer", name: "Data Transfer & Migration Paths" },
       { id: "fsx", name: "Amazon FSx" },
       { id: "hybrid-storage", name: "Storage Gateway, DataSync & Transfer Family" },
     ],
@@ -182,7 +182,7 @@ export const courseSections = [
     name: "Module 18: Choosing AWS Databases",
     subtopics: [
       { id: "db-choice", name: "Choosing the Right Database" },
-      { id: "purpose-built-db", name: "Purpose-Built DBs (DocumentDB, Neptune, Keyspaces, Timestream, QLDB)" },
+      { id: "purpose-built-db", name: "Purpose-Built DBs (DocumentDB, Neptune, Keyspaces, Timestream for InfluxDB, MemoryDB)" },
     ],
   },
   {
@@ -247,8 +247,8 @@ export const courseSections = [
     subtopics: [
       { id: "dr-strategies", name: "DR Strategies (RTO/RPO, Pilot Light, DRS)" },
       { id: "migration-services", name: "Migration Services (DMS, SCT, MGN, DB migrations)" },
-      { id: "on-prem-strategies", name: "On-Premises & Hybrid (Outposts, VMware Cloud, Migration Hub)" },
-      { id: "backup-transfer", name: "Backup & Data Transfer (AWS Backup, DataSync, Snow)" },
+      { id: "on-prem-strategies", name: "On-Premises & Hybrid (Outposts, Local Zones, Migration Hub)" },
+      { id: "backup-transfer", name: "Backup & Data Transfer (AWS Backup, DataSync, Transfer paths)" },
     ],
   },
   {
@@ -264,7 +264,7 @@ export const courseSections = [
     name: "Module 27: Additional Services",
     subtopics: [
       { id: "iac-deployment", name: "IaC & Deployment (CloudFormation, Amplify)" },
-      { id: "messaging-engagement", name: "Messaging & Engagement (SES, Pinpoint, AppFlow)" },
+      { id: "messaging-engagement", name: "Messaging & Engagement (SES, SNS, AppFlow)" },
       { id: "operations-mgmt", name: "Operations & Management (SSM, AWS Batch, Instance Scheduler)" },
       { id: "cost-management", name: "Cost Management (Cost Explorer, Cost Anomaly Detection)" },
     ],
