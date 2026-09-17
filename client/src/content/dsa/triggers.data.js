@@ -508,7 +508,7 @@ export const triggerQuestions = [
   {
     "id": "trigger-shortest-stretch-1",
     "type": "single",
-    "prompt": "You need the longest substring without repeated characters by extending its right edge and removing leftmost characters when a repeat occurs. Which range-management pattern fits?",
+    "prompt": "Positive integers form a list and you need the shortest contiguous stretch whose sum meets a threshold, growing and shrinking one window. Which range-management pattern fits?",
     "options": [
       {
         "id": "a",
@@ -536,7 +536,7 @@ export const triggerQuestions = [
   {
     "id": "trigger-shortest-stretch-2",
     "type": "single",
-    "prompt": "You need the maximum total of any consecutive block of exactly K values, updating the total as one value enters and another leaves. Which approach fits?",
+    "prompt": "You need the shortest contiguous stretch of positive values whose sum meets a threshold, updating the running total as the window grows and shrinks. Which approach fits?",
     "options": [
       {
         "id": "a",
@@ -3621,7 +3621,7 @@ export const triggerQuestions = [
     "options": [
       {
         "id": "a",
-        "text": "Floor Stack / Auxiliary Min Stack"
+        "text": "Floor Stack / Running-Minimum Stack"
       },
       {
         "id": "b",
@@ -3639,7 +3639,7 @@ export const triggerQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Floor Stack / Auxiliary Min Stack stores a running minimum for each depth. Popping restores the preceding minimum, including duplicate minima. A monotonic stack typically discards candidates and serves a different purpose."
+    "explanation": "Floor Stack / Running-Minimum Stack stores a running minimum for each depth. Popping restores the preceding minimum, including duplicate minima. A monotonic stack typically discards candidates and serves a different purpose."
   },
   {
     "id": "trigger-floor-stack-2",
@@ -3649,7 +3649,7 @@ export const triggerQuestions = [
     "options": [
       {
         "id": "a",
-        "text": "Floor Stack / Auxiliary Min Stack"
+        "text": "Floor Stack / Running-Minimum Stack"
       },
       {
         "id": "b",
@@ -3667,7 +3667,7 @@ export const triggerQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Floor Stack / Auxiliary Min Stack stores a running minimum for each depth. Popping restores the preceding minimum, including duplicate minima. A monotonic stack typically discards candidates and serves a different purpose."
+    "explanation": "Floor Stack / Running-Minimum Stack stores a running minimum for each depth. Popping restores the preceding minimum, including duplicate minima. A monotonic stack typically discards candidates and serves a different purpose."
   },
   {
     "id": "trigger-floor-stack-3",
@@ -3677,7 +3677,7 @@ export const triggerQuestions = [
     "options": [
       {
         "id": "a",
-        "text": "Floor Stack / Auxiliary Min Stack"
+        "text": "Floor Stack / Running-Minimum Stack"
       },
       {
         "id": "b",
@@ -3695,7 +3695,7 @@ export const triggerQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Floor Stack / Auxiliary Min Stack stores a running minimum for each depth. Popping restores the preceding minimum, including duplicate minima. A monotonic stack typically discards candidates and serves a different purpose."
+    "explanation": "Floor Stack / Running-Minimum Stack stores a running minimum for each depth. Popping restores the preceding minimum, including duplicate minima. A monotonic stack typically discards candidates and serves a different purpose."
   },
   {
     "id": "trigger-dual-stack-fifo-1",
@@ -3807,7 +3807,7 @@ export const triggerQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Map represents key-to-value associations. The Design HashMap exercise implements put/get/remove semantics; a Set has no associated values. Follow the exercise’s specified missing-key return value."
+    "explanation": "Map represents key-to-value associations. The Simple Key Store exercise implements put/get/remove semantics; a Set has no associated values. Follow the exercise’s specified missing-key return value."
   },
   {
     "id": "trigger-simple-key-store-2",
@@ -3835,7 +3835,7 @@ export const triggerQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Map represents key-to-value associations. The Design HashMap exercise implements put/get/remove semantics; a Set has no associated values. Follow the exercise’s specified missing-key return value."
+    "explanation": "Map represents key-to-value associations. The Simple Key Store exercise implements put/get/remove semantics; a Set has no associated values. Follow the exercise’s specified missing-key return value."
   },
   {
     "id": "trigger-simple-key-store-3",
@@ -3863,7 +3863,7 @@ export const triggerQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Map represents key-to-value associations. The Design HashMap exercise implements put/get/remove semantics; a Set has no associated values. Follow the exercise’s specified missing-key return value."
+    "explanation": "Map represents key-to-value associations. The Simple Key Store exercise implements put/get/remove semantics; a Set has no associated values. Follow the exercise’s specified missing-key return value."
   },
   {
     "id": "trigger-bounded-recent-1",

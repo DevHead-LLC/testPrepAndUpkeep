@@ -1,4 +1,5 @@
 // Domain 1 — Design Secure Architectures (30%)
+// Independently authored educational practice content based on publicly documented AWS concepts.
 // Question shape is documented in plan/01-architecture.md.
 // `correct` is ALWAYS an array of option ids (one id for single-answer).
 export const questions = [

@@ -1,4 +1,5 @@
 // Domain 2 — Design Resilient Architectures (26%)
+// Independently authored educational practice content based on publicly documented AWS concepts.
 // Question shape is documented in plan/01-architecture.md.
 // `correct` is ALWAYS an array of option ids (one or more for multi-select).
 export const questions = [

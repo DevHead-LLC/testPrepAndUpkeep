@@ -49,7 +49,7 @@ Independently authored exercises inspired by common computer-science and intervi
 | Neighbor Product Map | Prefix / Suffix Products | Combine left and right products without division. |
 | Longest Unique Window | Sliding Window | Expand right and advance left when uniqueness breaks. |
 | Basin Capacity | Two Pointers | Process the shorter elevation boundary first. |
-| Floor-Tracking Stack | Floor Stack / Auxiliary Min Stack | Keep a synchronized minimum for each stack depth. |
+| Floor-Tracking Stack | Floor Stack / Running-Minimum Stack | Keep a synchronized minimum for each stack depth. |
 | FIFO From Two Stacks | FIFO From Two Stacks | Pour incoming values into an outgoing stack. |
 | Simple Key Store | Map | Put, get, and remove associated values by key. |
 | Bounded Recent Cache | Bounded Recent Cache / Recency Tracking | Evict least-recently-used; refresh on access. |

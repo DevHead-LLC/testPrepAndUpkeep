@@ -462,7 +462,7 @@ export const patternQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Start a flood fill at each unvisited land cell and mark its connected land. Each new flood fill counts one island.",
+    "explanation": "Start a flood fill at each unvisited land cell and mark its connected land. Each new flood fill counts one landmass.",
     "exerciseId": "dsa-landmass-count",
     "mentalTrigger": "Need to flood-fill and count connected land regions."
   },
@@ -549,7 +549,7 @@ export const patternQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Keep unresolved indices in decreasing temperature order. A warmer day resolves indices popped from the stack.",
+    "explanation": "Keep unresolved indices in decreasing reading order. A warmer day resolves indices popped from the stack.",
     "exerciseId": "dsa-days-until-warmer",
     "mentalTrigger": "Need to resolve pending days when a strictly warmer value arrives."
   },
@@ -607,7 +607,7 @@ export const patternQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "At each house, compare skipping it with taking its money plus the best total ending at least two houses earlier.",
+    "explanation": "At each stash, compare skipping it with taking its value plus the best total ending at least two positions earlier.",
     "exerciseId": "dsa-skip-adjacent-loot",
     "mentalTrigger": "Need maximum value from non-adjacent selections: take or skip."
   },
@@ -1257,7 +1257,7 @@ export const patternQuestions = [
     "options": [
       {
         "id": "a",
-        "text": "Floor Stack / Auxiliary Min Stack"
+        "text": "Floor Stack / Running-Minimum Stack"
       },
       {
         "id": "b",
@@ -1275,7 +1275,7 @@ export const patternQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Floor Stack / Auxiliary Min Stack stores a running minimum for each depth. Popping restores the preceding minimum, including duplicate minima. A monotonic stack typically discards candidates and serves a different purpose.",
+    "explanation": "Floor Stack / Running-Minimum Stack stores a running minimum for each depth. Popping restores the preceding minimum, including duplicate minima. A monotonic stack typically discards candidates and serves a different purpose.",
     "mentalTrigger": "After popping the smallest stack value, you need to recover the previous minimum immediately. Which structure remembers a minimum at every depth?"
   },
   {
@@ -1333,7 +1333,7 @@ export const patternQuestions = [
     "correct": [
       "a"
     ],
-    "explanation": "Map represents key-to-value associations. The Design HashMap exercise implements put/get/remove semantics; a Set has no associated values. Follow the exercise’s specified missing-key return value.",
+    "explanation": "Map represents key-to-value associations. The Simple Key Store exercise implements put/get/remove semantics; a Set has no associated values. Follow the exercise’s specified missing-key return value.",
     "mentalTrigger": "You need key-based insertion, replacement, lookup, and deletion of associated values. Which abstract structure fits?"
   },
   {

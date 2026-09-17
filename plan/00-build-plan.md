@@ -102,7 +102,7 @@ Goal: take a real quiz in the browser and see a score saved.
 ## Phase 4 — DSA MVP
 
 1. Define problem format (`problem.js` + `tests.js`) under `content/dsa/`.
-2. Author one problem (e.g. `arrays/two-sum`).
+2. Author one problem (e.g. `arrays/matching-pair`).
 3. Runner imports a solution, runs it against tests, deep-compares outputs, scores pass/fail, saves in the shared shape.
 4. Show two different solutions both passing.
 
