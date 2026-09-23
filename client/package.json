@@ -11,14 +11,18 @@
     "test:dsa": "node --test scripts/dsa-runner.test.mjs",
     "test:rw": "node --test scripts/realworld-runner.test.mjs",
     "test:editor": "node --test scripts/editor.test.mjs",
+    "test:trace": "node --test scripts/trace.test.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
+    "acorn": "^8.18.0",
+    "acorn-walk": "^8.3.5",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@types/acorn": "^4.0.6",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",

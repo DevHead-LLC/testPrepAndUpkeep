@@ -10,6 +10,11 @@
 //    constructor name and the rest are method calls (ops/args/expected sequence).
 
 import { prepareInput, inspectReversedList } from "./fixtures.js";
+import {
+  TRACE_FRAME_CAP,
+  instrumentForTrace,
+  createTraceRecorder,
+} from "./trace.js";
 
 function deepEqual(a, b) {
   if (a === b) return true;
@@ -158,6 +163,67 @@ function runDesign({ source, className, tests }) {
   return { results };
 }
 
+function runTrace({
+  source,
+  fnName,
+  tests,
+  inputKind,
+  frameCap = TRACE_FRAME_CAP,
+}) {
+  const test = tests?.[0];
+  if (!test) {
+    return { frames: [], capped: false, compileError: "No test selected to trace." };
+  }
+
+  const instrumented = instrumentForTrace(source);
+  if (!instrumented.ok) {
+    return {
+      frames: [],
+      capped: false,
+      compileError: `Trace can’t parse this code: ${instrumented.error}`,
+    };
+  }
+
+  const recorder = createTraceRecorder(frameCap);
+  let fn;
+  try {
+    fn = new Function(
+      "__trace",
+      `${instrumented.instrumentedSource}\n; return typeof ${fnName} !== "undefined" ? ${fnName} : undefined;`,
+    )(recorder.__trace);
+  } catch (err) {
+    return {
+      frames: recorder.frames,
+      capped: recorder.capped,
+      compileError: String(err?.message ?? err),
+    };
+  }
+  if (typeof fn !== "function") {
+    return {
+      frames: [],
+      capped: false,
+      compileError: `Could not find a function named "${fnName}". Make sure your code defines it.`,
+    };
+  }
+
+  try {
+    const { args } = prepareInput(test.input, inputKind);
+    fn(...args);
+  } catch (err) {
+    if (err?.code === "TRACE_CAP" || err?.message === "TRACE_CAP") {
+      return { frames: recorder.frames, capped: true };
+    }
+    return {
+      frames: recorder.frames,
+      capped: recorder.capped,
+      error: String(err?.message ?? err),
+    };
+  }
+
+  return { frames: recorder.frames, capped: recorder.capped };
+}
+
 export function evaluateSolution(data) {
+  if (data.mode === "trace") return runTrace(data);
   return data.kind === "design" ? runDesign(data) : runFunction(data);
 }

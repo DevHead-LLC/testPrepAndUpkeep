@@ -13,6 +13,8 @@ export function runSolution({
   tests,
   inputKind,
   outputKind,
+  mode,
+  frameCap,
   timeoutMs = 3000,
 }) {
   return new Promise((resolve) => {
@@ -22,13 +24,21 @@ export function runSolution({
         type: "module",
       });
     } catch (err) {
-      resolve({ error: `Could not start runner: ${err}`, results: [] });
+      resolve(
+        mode === "trace"
+          ? { error: `Could not start runner: ${err}`, frames: [], capped: false }
+          : { error: `Could not start runner: ${err}`, results: [] },
+      );
       return;
     }
 
     const timer = setTimeout(() => {
       worker.terminate();
-      resolve({ timedOut: true, results: [] });
+      resolve(
+        mode === "trace"
+          ? { timedOut: true, frames: [], capped: false }
+          : { timedOut: true, results: [] },
+      );
     }, timeoutMs);
 
     worker.onmessage = (e) => {
@@ -40,9 +50,23 @@ export function runSolution({
     worker.onerror = (e) => {
       clearTimeout(timer);
       worker.terminate();
-      resolve({ error: e.message || "Runner error", results: [] });
+      resolve(
+        mode === "trace"
+          ? { error: e.message || "Runner error", frames: [], capped: false }
+          : { error: e.message || "Runner error", results: [] },
+      );
     };
 
-    worker.postMessage({ source, fnName, className, kind, tests, inputKind, outputKind });
+    worker.postMessage({
+      source,
+      fnName,
+      className,
+      kind,
+      tests,
+      inputKind,
+      outputKind,
+      mode,
+      frameCap,
+    });
   });
 }

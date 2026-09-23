@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { runSolution } from "../../engine/dsa/runner.js";
+import { formatTraceState } from "../../engine/dsa/trace.js";
 import { saveAttempt } from "../../engine/storage.js";
 import { tipsByProblemId as dsaTips } from "../../content/dsa/tips.js";
 import { tipsByProblemId as rwTips } from "../../content/realworld/tips.js";
@@ -72,6 +73,20 @@ export default function CodeSolve({ problem, trackKey, onBack }) {
   const redoStack = useRef([]);
   const tips = tipsByProblemId[problem.id];
 
+  const visibleTests = (problem.tests || []).filter((t) => !t.hidden);
+  const canTrace = (problem.kind ?? "function") !== "design" && visibleTests.length > 0;
+  const [traceTestIndex, setTraceTestIndex] = useState(0);
+  const [traceFrames, setTraceFrames] = useState([]);
+  const [traceIndex, setTraceIndex] = useState(-1);
+  const [traceMeta, setTraceMeta] = useState(null); // { capped, error, compileError, timedOut }
+  const [tracing, setTracing] = useState(false);
+
+  function clearTrace() {
+    setTraceFrames([]);
+    setTraceIndex(-1);
+    setTraceMeta(null);
+  }
+
   function pushUndoSnapshot() {
     pushSnapshot(undoStack.current, snapshotRef.current);
     redoStack.current = [];
@@ -95,13 +110,17 @@ export default function CodeSolve({ problem, trackKey, onBack }) {
     setCode(next.code);
   }
 
-  // Apply caret/selection changes after a programmatic edit re-renders.
+  // Keep caret/selection after programmatic edits, then grow the editor to fit.
   useEffect(() => {
     if (pendingSelection.current && textareaRef.current) {
       const [s, e] = pendingSelection.current;
       textareaRef.current.setSelectionRange(s, e);
       pendingSelection.current = null;
     }
+    const el = textareaRef.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${Math.max(el.scrollHeight, 192)}px`;
   }, [code]);
 
   function handleKeyDown(e) {
@@ -138,6 +157,7 @@ export default function CodeSolve({ problem, trackKey, onBack }) {
       snapshotRef.current = { code: newValue, selStart, selEnd };
       pendingSelection.current = [selStart, selEnd];
       setCode(newValue);
+      clearTrace();
     };
 
     // Tab / Shift+Tab → indent within the editor instead of leaving the field.
@@ -196,6 +216,7 @@ export default function CodeSolve({ problem, trackKey, onBack }) {
       selEnd: el.selectionEnd,
     };
     setCode(el.value);
+    clearTrace();
   }
 
   function handleSelect(e) {
@@ -213,6 +234,47 @@ export default function CodeSolve({ problem, trackKey, onBack }) {
     redoStack.current = [];
     setCode(starter);
     setOutcome(null);
+    clearTrace();
+  }
+
+  async function startTrace() {
+    if (!canTrace || tracing || running) return;
+    const test = visibleTests[Math.min(traceTestIndex, visibleTests.length - 1)];
+    if (!test) return;
+    setTracing(true);
+    clearTrace();
+    const res = await runSolution({
+      source: code,
+      fnName: problem.fnName,
+      kind: "function",
+      tests: [test],
+      inputKind: problem.inputKind,
+      outputKind: problem.outputKind,
+      mode: "trace",
+    });
+    setTracing(false);
+    if (res.compileError || res.timedOut || res.error) {
+      setTraceMeta({
+        compileError: res.compileError,
+        timedOut: res.timedOut,
+        error: res.error,
+        capped: res.capped,
+      });
+      setTraceFrames(res.frames ?? []);
+      setTraceIndex((res.frames?.length ?? 0) > 0 ? 0 : -1);
+      return;
+    }
+    setTraceMeta({ capped: !!res.capped });
+    setTraceFrames(res.frames ?? []);
+    setTraceIndex((res.frames?.length ?? 0) > 0 ? 0 : -1);
+  }
+
+  function stepTrace(delta) {
+    if (traceFrames.length === 0) return;
+    setTraceIndex((i) => {
+      const next = Math.max(0, Math.min(traceFrames.length - 1, (i < 0 ? 0 : i) + delta));
+      return next;
+    });
   }
 
   async function runTests() {
@@ -433,44 +495,151 @@ export default function CodeSolve({ problem, trackKey, onBack }) {
         </section>
       )}
 
-      <section className="panel">
-        <div className="panel__head">
-          <h2>
-            {problem.mode === "redteam"
-              ? "Model output — find the failure and fix it"
-              : "Your solution"}
-          </h2>
-          <button className="btn btn--ghost" onClick={resetCode}>
-            {problem.mode === "redteam" ? "Reset to model output" : "Reset code"}
-          </button>
-        </div>
-        <textarea
-          ref={textareaRef}
-          className="editor"
-          aria-label="JavaScript solution"
-          aria-describedby="editor-shortcuts"
-          autoCapitalize="off"
-          autoCorrect="off"
-          value={code}
-          spellCheck={false}
-          onChange={handleChange}
-          onSelect={handleSelect}
-          onKeyDown={handleKeyDown}
-          rows={12}
-        />
-        <p className="muted" id="editor-shortcuts">
-          Tab / Shift+Tab: indent · Cmd/Ctrl+Z: undo · Shift+Cmd/Ctrl+Z: redo · Cmd/Ctrl+Enter: run tests
-        </p>
-        <div className="solve__actions">
-          <button
-            className="btn btn--primary"
-            onClick={runTests}
-            disabled={running}
-          >
-            {running ? "Running…" : "Run tests"}
-          </button>
-        </div>
-      </section>
+      <div className={`solve__workspace${canTrace ? " solve__workspace--trace" : ""}`}>
+        <section className="panel solve__editor-panel">
+          <div className="panel__head">
+            <h2>
+              {problem.mode === "redteam"
+                ? "Model output — find the failure and fix it"
+                : "Your solution"}
+            </h2>
+            <button className="btn btn--ghost" onClick={resetCode}>
+              {problem.mode === "redteam" ? "Reset to model output" : "Reset code"}
+            </button>
+          </div>
+          <textarea
+            ref={textareaRef}
+            className="editor"
+            aria-label="JavaScript solution"
+            aria-describedby="editor-shortcuts"
+            autoCapitalize="off"
+            autoCorrect="off"
+            value={code}
+            spellCheck={false}
+            onChange={handleChange}
+            onSelect={handleSelect}
+            onKeyDown={handleKeyDown}
+            rows={8}
+          />
+          <p className="muted" id="editor-shortcuts">
+            Tab / Shift+Tab: indent · Cmd/Ctrl+Z: undo · Shift+Cmd/Ctrl+Z: redo · Cmd/Ctrl+Enter: run tests
+          </p>
+          <div className="solve__actions">
+            <button
+              className="btn btn--primary"
+              onClick={runTests}
+              disabled={running || tracing}
+            >
+              {running ? "Running…" : "Run tests"}
+            </button>
+          </div>
+        </section>
+
+        {canTrace && (
+          <section className="panel trace-panel" aria-label="Step tracer">
+            <div className="panel__head">
+              <h2>Step tracer</h2>
+            </div>
+            <p className="muted trace-panel__hint">
+              Record one test, then step through assignments, loops, and structure changes.
+            </p>
+            <label className="trace-panel__picker">
+              <span className="muted">Trace this test</span>
+              <select
+                value={Math.min(traceTestIndex, visibleTests.length - 1)}
+                onChange={(e) => {
+                  setTraceTestIndex(Number(e.target.value));
+                  clearTrace();
+                }}
+                disabled={tracing}
+              >
+                {visibleTests.map((t, i) => (
+                  <option key={i} value={i}>
+                    #{i + 1}: {problem.fnName}({fmt(t.input).slice(0, 48)}
+                    {fmt(t.input).length > 48 ? "…" : ""})
+                  </option>
+                ))}
+              </select>
+            </label>
+            <div className="trace-panel__controls">
+              <button
+                className="btn btn--ghost"
+                onClick={startTrace}
+                disabled={tracing || running}
+              >
+                {tracing ? "Recording…" : "Start"}
+              </button>
+              <button
+                className="btn btn--ghost"
+                onClick={() => stepTrace(1)}
+                disabled={traceFrames.length === 0 || traceIndex >= traceFrames.length - 1}
+              >
+                Step
+              </button>
+              <button
+                className="btn btn--ghost"
+                onClick={() => stepTrace(-1)}
+                disabled={traceFrames.length === 0 || traceIndex <= 0}
+              >
+                Back
+              </button>
+              <button
+                className="btn btn--ghost"
+                onClick={clearTrace}
+                disabled={traceFrames.length === 0 && !traceMeta}
+              >
+                Reset
+              </button>
+            </div>
+
+            {traceMeta?.compileError && (
+              <p className="run-error">⚠ {traceMeta.compileError}</p>
+            )}
+            {traceMeta?.timedOut && (
+              <p className="run-error">⚠ Timed out while recording the trace.</p>
+            )}
+            {traceMeta?.error && (
+              <p className="run-error">⚠ {traceMeta.error}</p>
+            )}
+            {traceMeta?.capped && (
+              <p className="muted">Trace stopped at the frame cap.</p>
+            )}
+
+            {traceIndex >= 0 && traceFrames[traceIndex] && (
+              <div className="trace-panel__frame">
+                <div className="trace-panel__meta">
+                  <span className="pill-mini">
+                    {traceFrames[traceIndex].event}
+                  </span>
+                  <span className="muted">
+                    line {traceFrames[traceIndex].line} · {traceIndex + 1}/
+                    {traceFrames.length}
+                  </span>
+                </div>
+                <pre className="trace-panel__line" aria-label="Paused at line">
+                  {(() => {
+                    const lines = code.split("\n");
+                    const line = traceFrames[traceIndex].line;
+                    const text = lines[line - 1] ?? "";
+                    return `${line}| ${text}`;
+                  })()}
+                </pre>
+                <ul className="trace-panel__state" aria-label="Current state">
+                  {formatTraceState(traceFrames[traceIndex]).map((line, i) => (
+                    <li key={`${i}-${line}`}>
+                      <code>{line}</code>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {traceFrames.length === 0 && !traceMeta?.compileError && !tracing && (
+              <p className="muted">Press Start to record a timeline for the selected test.</p>
+            )}
+          </section>
+        )}
+      </div>
 
       {outcome && (
         <section className="panel">
