@@ -244,7 +244,7 @@ export const problems = [
     difficulty: "medium",
     fnName: "fewestTokens",
     prompt:
-      "You have unlimited coins of several denominations and need to reach an exact total. Return the smallest number of coins that sum to that total, or -1 if it is impossible.",
+      "You have unlimited tokens of several denominational values and need to reach an exact total. Return the smallest number of tokens that sum to that total, or -1 if it is impossible.",
     starter:
       "function fewestTokens(denoms, total) {\n  // return the minimum coin count, or -1\n}\n",
     tests: [
