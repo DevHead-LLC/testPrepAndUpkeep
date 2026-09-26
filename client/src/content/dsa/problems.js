@@ -232,6 +232,8 @@ export const problems = [
       { input: [[4, 1, 5, 2]], expected: 9 },
       { input: [[6, 3, 8, 2, 7]], expected: 21 },
       { input: [[3, 10, 3, 10]], expected: 20 },
+      // Catches "sum even indices vs odd indices" — optimal is both ends: 4+4=8, not max(5,5).
+      { input: [[4, 1, 1, 4]], expected: 8 },
       { input: [[8]], expected: 8, hidden: true },
     ],
   },
