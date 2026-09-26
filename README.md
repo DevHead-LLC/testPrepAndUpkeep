@@ -1,6 +1,6 @@
 # Developer Test Prep
 
-A free, local study application for developers preparing for technical assessments and the **AWS Certified Solutions Architect - Associate (SAA-C03)** exam.
+A free, local practice application for developers preparing for technical assessments and the **AWS Certified Solutions Architect - Associate (SAA-C03)** exam.
 
 I originally built this as part of my own preparation as a self-taught developer. Instead of bouncing between paid practice sites, coding challenge platforms, notes, and certification resources, I wanted one place where I could practice the material locally.
 
@@ -132,6 +132,8 @@ Practice-question data is currently stored locally in JavaScript data files.
 
 No external database is required.
 
+For the implementation and practice content coverage, see the [architecture notes](plan/01-architecture.md) and [DSA pattern coverage](plan/dsa-pattern-coverage.md).
+
 ## Who This Is For
 
 This project may be useful if you are:
@@ -139,7 +141,7 @@ This project may be useful if you are:
 * Preparing for developer technical assessments
 * Practicing common DSA patterns
 * Preparing for AWS SAA-C03
-* Learning JavaScript problem solving
+* Practicing JavaScript problem solving
 * Practicing debugging and code review
 * Preparing for AI-assisted coding or code-evaluation work
 * A self-taught developer looking for structured practice without another subscription
@@ -166,6 +168,6 @@ See [`LICENSE`](LICENSE) for details.
 
 ## Disclaimer
 
-This project is provided for educational and practice purposes.
+This project is provided for practice purposes.
 
 Passing practice questions or coding challenges does not guarantee certification, employment, interview performance, or assessment results.

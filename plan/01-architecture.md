@@ -2,13 +2,13 @@
 
 > How the app is built, how files are organized, and what the data looks like.
 > **Stack:** React (Vite). **Persistence:** browser `localStorage` (no database, no server).
-> Progress/state is tracked separately in `tracker.md`; this file is the stable "how it's built" reference.
+> The directory layout and track list below reflect the current app. Later sections also retain the original data shapes and design decisions as implementation history.
 
 ---
 
 ## Two core ideas
 
-1. **Track:** a subject area. We have two planned: `aws-saa` (AWS SAA-C03 quiz) and `dsa` (Data Structures & Algorithms, later). Each track owns its content but reuses the same engine helpers and the same attempt/score shape.
+1. **Track:** a practice area. The app has `aws-saa` (certification questions), `dsa` (JavaScript coding), `dsa-patterns` (pattern recognition quizzes), and `realworld` (applied JavaScript and code review). DSA and Real World share a coding track and worker-based runner; AWS and DSA Patterns use quiz components.
 2. **Authored vs generated data:**
    - **Authored content** (questions) → `.js` modules using `export`. Hand-written, comments allowed, imported at build time by Vite.
    - **Generated data** (scores/attempts) → JSON in **`localStorage`**. The app reads/writes it at runtime. This is the "use my own local machine for local storage" requirement, met with zero backend.
@@ -25,49 +25,27 @@
 
 ## Directory layout
 
-```
+```text
 testPrepAndUpkeep/
-├── README.md                  # entry point
-├── tracker.md                 # living progress + rules + problems log
-├── .gitignore                 # ignores node_modules, build output
-│
-├── plan/                      # planning docs
-│   ├── 00-build-plan.md        # phases + order
-│   ├── 01-architecture.md      # this file
-│   └── aws-saa-reference.md    # SAA-C03 exam research
-│
-├── client/                    # the React app (Vite) — the product
-│   ├── index.html
-│   ├── package.json            # type: module; deps: react, react-dom; dev: vite, eslint
-│   ├── vite.config.js
-│   ├── eslint.config.js
-│   ├── public/
-│   └── src/
-│       ├── main.jsx            # React entry
-│       ├── App.jsx             # screen state machine (home | quiz | results)
-│       ├── App.css             # component styles
-│       ├── index.css           # theme tokens + global styles
-│       ├── content/            # AUTHORED study material (.js modules)
-│       │   └── aws-saa/
-│       │       ├── sections.js           # section registry (key, name, weight)
-│       │       ├── index.js              # aggregates all sections
-│       │       ├── d1-secure.data.js     # Domain 1 questions
-│       │       ├── d2-resilient.data.js  # (placeholder)
-│       │       ├── d3-high-performing.data.js
-│       │       └── d4-cost-optimized.data.js
-│       ├── engine/             # pure logic, no React
-│       │   ├── select.js       # shuffle + pick questions
-│       │   ├── score.js        # grading + weak-section analysis
-│       │   └── storage.js      # localStorage read/write + derived stats
-│       └── components/
-│           ├── Home.jsx        # choose Overall Test / Section Review + progress
-│           ├── Quiz.jsx        # one question at a time, select + advance
-│           └── Results.jsx     # score, pass/fail, per-section, answer review
-│
-└── server/                    # (FUTURE, optional) API + file persistence — only if needed
+├── README.md                 # public setup and project overview
+├── LICENSE
+├── plan/                     # engineering and content references
+│   ├── 00-build-plan.md       # original implementation sequence
+│   ├── 01-architecture.md     # this file
+│   ├── aws-saa-reference.md   # exam reference and sources
+│   └── dsa-pattern-coverage.md
+└── client/                   # React + Vite application
+    ├── package.json          # dev, build, lint, validation, and test scripts
+    ├── scripts/              # content and runner checks
+    └── src/
+        ├── App.jsx           # four practice tabs and hash navigation
+        ├── tracks/           # AWS, shared coding, and pattern quiz screens
+        ├── content/          # authored AWS, DSA, and Real World practice data
+        ├── engine/           # grading, selection, storage, routing, and code runner
+        └── components/       # quiz, results, review, and coding UI
 ```
 
-**Why this shape:** `content/` (what I study), `engine/` (logic), `components/` (UI) are cleanly separated, so content and logic can be tested/grown without touching the UI. The track name is always the folder under `content/`, so AWS and DSA never collide and adding DSA later is obvious.
+Authored content lives in JavaScript modules; attempts and UI preferences are saved in browser `localStorage`. The code-practice runner executes submissions in a Web Worker with a timeout. There is no application backend or account system.
 
 ---
 
@@ -151,15 +129,15 @@ export const sections = [
 - `passLikely` = `percent >= 72`.
 - **Summary stats are derived on read** (see `engine/storage.js → summarize`), not stored separately. Attempts are the single source of truth. (This is a deliberate simplification over the earlier "summary.json" idea, which suited file storage; for localStorage, deriving is cleaner.)
 
-### DSA (implemented in Phase 4)
+### DSA coding (current)
 
-DSA problems live in a single `client/src/content/dsa/problems.js`, each with `{ id, topic, title, difficulty, fnName, prompt, starter, tests: [{ input, expected }] }` (`input` is the array of function arguments). The user writes a JS function in an in-app editor; it is graded by running it against the tests in a **Web Worker** (`engine/dsa/worker.js`, launched via `engine/dsa/runner.js` with a 3s timeout so infinite loops can be killed). Grading uses a recursive `deepEqual`, so **any** implementation returning the expected outputs passes — two different correct approaches both score correct. DSA attempts are stored under `tpu:dsa:attempts`. A Dart/Flutter runner is planned (Phase 6) sharing the same test data.
+DSA problems are aggregated in `client/src/content/dsa/problems.js`; additional exercises live in `expansion.data.js`. Function problems define a name and cases with `{ input, expected }`; design problems replay method operations. User code runs in a **Web Worker** (`engine/dsa/worker.js` via `engine/dsa/runner.js`) with a timeout. Any implementation returning the expected outputs passes. Attempts are stored under `tpu:dsa:attempts`.
 
-> Note: this is simpler than the originally sketched per-folder `problem.js`/`tests.js` layout — a single problems file is enough at this scale and easy to split later.
+> The original per-folder `problem.js`/`tests.js` proposal was replaced with an aggregated problem bank.
 
 ### App shell & tracks
 
-`App.jsx` is a thin shell: a header with track tabs (AWS SAA ⇄ Algorithms) that renders one of two orchestrators — `tracks/AwsTrack.jsx` (home/quiz/results) or `tracks/DsaTrack.jsx` (problem list / solve screen).
+`App.jsx` renders four practice tabs: `AwsTrack` for AWS quizzes, a shared `CodeTrack` for DSA and Real World challenges, and `PatternTrack` for DSA pattern quizzes. Hash navigation preserves the selected track and coding problem.
 
 ---
 
@@ -171,16 +149,16 @@ DSA problems live in a single `client/src/content/dsa/problems.js`, each with `{
 | Language | **JavaScript / JSX** | "JavaScript first for everything" |
 | Persistence | **`localStorage`** | Local, no server, no DB |
 | Server | **Deferred** to a future `server/` dir | Only if scores-as-files or cross-device is wanted |
-| Routing | **In-app screen state** (no router lib) | Three screens; a library is overkill |
-| State mgmt | **`useState` in `App`** | Small app; no Redux/context needed yet |
-| Dependencies | **Only React + Vite/ESLint toolchain** | Keep the surface small |
+| Routing | **URL hash + in-app state** (no router lib) | Retains track and coding problem without another dependency |
+| State mgmt | **React local state** | No global state library needed |
+| Dependencies | **React, Vite/ESLint, and Acorn tooling** | UI, builds, linting, and code editing/evaluation |
 | Content format | **`.js` modules** | Hand-authored, comments allowed |
 | Score format | **JSON in localStorage** | Easy, safe runtime serialization |
 | First track | **`aws-saa`** | Finish before starting DSA |
 | First question type | **single-answer** | Smallest end-to-end slice (multi-select wired but unused until Phase 2) |
 | Grading key | **option ids (sets)** | Enables shuffling; unifies single + multi |
 | Multi-select grading | **all-or-nothing** | Matches real SAA-C03 |
-| Pass threshold | **72%** | Maps to 720/1000 |
+| AWS targets | **72% overall; 75% section review** | Separate mock-exam and focused-practice targets |
 
 ---
 
@@ -193,5 +171,5 @@ DSA problems live in a single `client/src/content/dsa/problems.js`, each with `{
 5. **localStorage reads are defensive** — wrapped in try/catch so corrupt/empty storage never crashes the app.
 6. **Counts are clamped** — asking for more questions than exist just returns what exists (no crash, no duplicates).
 7. **Weighted overall selection with remainder fill** — empty sections don't break the draw.
-8. **Content validation** — a future script to verify each question is well-formed (correct ids exist, single has exactly one correct). Planned for Phase 3.
+8. **Content validation** — `npm run validate` checks authored practice content; the root README lists the other available checks.
 9. **`.gitignore`** covers `node_modules` and build output; scores are in the browser, not git.

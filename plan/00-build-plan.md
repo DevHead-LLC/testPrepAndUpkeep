@@ -1,27 +1,24 @@
-# Build Plan — Test Prep & Upkeep
+# Original Build Plan — Test Prep & Upkeep
 
-> **What this repo is:** a small, personal, local-only **React** study tool with two "tracks":
-> 1. **`aws-saa`** — AWS Solutions Architect Associate (SAA-C03) multiple-choice quiz.
-> 2. **`dsa`** — Data Structures & Algorithms code practice (test-based grading), added later.
+> This records the original implementation sequence. The current app has four practice tracks: AWS SAA, DSA coding, DSA Patterns, and Real World JavaScript/code review. See [architecture](01-architecture.md) for the current layout and the [root README](../README.md) for setup.
 >
-> **Guiding principle:** keep it SUPER simple. Get a basic version running end-to-end, then improve one piece at a time. React + Vite on the front end, scores in the browser's `localStorage`. No database. A backend (`server/`) is added only if we ever truly need one.
->
-> Live progress and problems are tracked in **`tracker.md`**. This file is the stable plan.
+> **Original guiding principle:** keep the first version simple and improve it incrementally. React + Vite on the front end, scores in browser `localStorage`, and no database or backend unless needed.
 
 ---
 
 ## The big picture
 
-One engine pattern, reused by both tracks:
+One practice flow, extended across the tracks:
 
 ```
   pick content  ->  ask / run  ->  grade  ->  show score  ->  save to localStorage
 ```
 
 - The **AWS track** asks multiple-choice questions and grades by comparing chosen option ids to the correct set.
-- The **DSA track** (later) runs your solution against test cases and grades pass/fail. Two different correct solutions both pass the same tests — that is how we get "correct for both ways."
+- The **DSA and Real World tracks** run JavaScript solutions against test cases. Any implementation passing the cases can succeed.
+- The **DSA Patterns track** uses multiple-choice practice rounds.
 
-Both tracks reuse the same attempt/score shape so progress tracking is identical.
+Attempts are stored separately by track in browser `localStorage`.
 
 ---
 
@@ -46,7 +43,7 @@ Both tracks reuse the same attempt/score shape so progress tracking is identical
 | 7 | **Phase 6 — Dart/Flutter** | dsa | Dart runner sharing the same tests; (optional) Flutter widget exercises |
 | 8 | **Phase 7 — Backend (maybe)** | both | `server/` API + file persistence, only if localStorage is ever outgrown |
 
-> We do not start a phase until the previous one feels good to use.
+> The phases below document the initial plan, including deferred ideas. They are not a current task list.
 
 ---
 
