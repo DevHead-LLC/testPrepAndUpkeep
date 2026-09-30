@@ -416,6 +416,9 @@ export const problems = [
       { input: ["zzzz"], expected: 1 },
       { input: [""], expected: 0 },
       { input: ["abba"], expected: 2 },
+      // Max is mid-string; returning only the final window size fails these.
+      { input: ["abcaa"], expected: 3 },
+      { input: ["abcabcbb"], expected: 3 },
       { input: ["aab"], expected: 2, hidden: true },
     ],
   },

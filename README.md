@@ -79,6 +79,8 @@ User progress is stored in browser `localStorage`, which means:
 | **AWS SAA**      | Multiple-choice and multiple-response practice for AWS Solutions Architect Associate concepts   |
 | **DSA**          | JavaScript coding challenges evaluated against test cases                                       |
 | **DSA Patterns** | Practice identifying the underlying data structure or algorithm before implementation           |
+| **REGEX**        | Multiple-choice JavaScript regex drills (easy / medium / hard): meaning and exact outcomes      |
+| **Principles**   | Multiple-choice software design principles (easy / medium / hard): names, meanings, scenarios   |
 | **Real World**   | Applied JavaScript problems, debugging exercises, code review, and AI/red-team style challenges |
 
 ## Coding Challenges
