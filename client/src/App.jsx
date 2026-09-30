@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import AwsTrack from "./tracks/AwsTrack.jsx";
 import CodeTrack from "./tracks/CodeTrack.jsx";
 import PatternTrack from "./tracks/PatternTrack.jsx";
+import RegexTrack from "./tracks/RegexTrack.jsx";
+import PrinciplesTrack from "./tracks/PrinciplesTrack.jsx";
 import { problems as dsaProblems, dsaTopics } from "./content/dsa/problems.js";
 import { problems as rwProblems, topics as rwTopics } from "./content/realworld/problems.js";
 import { parseHash, trackHref, writeHash } from "./engine/route.js";
@@ -22,6 +24,16 @@ const TRACKS = [
     key: "dsa-patterns",
     label: "DSA Patterns",
     subtitle: "Data Structures & Algorithms · Pattern Recognition",
+  },
+  {
+    key: "regex",
+    label: "REGEX",
+    subtitle: "JavaScript Regular Expressions · Multiple Choice",
+  },
+  {
+    key: "principles",
+    label: "Principles",
+    subtitle: "Software Design Principles · Multiple Choice",
   },
   {
     key: "realworld",
@@ -76,6 +88,8 @@ export default function App() {
       <main className="app__main">
         {track === "aws-saa" && <AwsTrack />}
         {track === "dsa-patterns" && <PatternTrack />}
+        {track === "regex" && <RegexTrack />}
+        {track === "principles" && <PrinciplesTrack />}
         {track === "dsa" && (
           <CodeTrack
             trackKey="dsa"

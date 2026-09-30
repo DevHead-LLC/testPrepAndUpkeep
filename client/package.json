@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "validate": "node scripts/validate-content.mjs && node scripts/validate-dsa.mjs && node scripts/validate-realworld.mjs",
+    "validate": "node scripts/validate-content.mjs && node scripts/validate-dsa.mjs && node scripts/validate-realworld.mjs && node scripts/validate-regex.mjs && node scripts/validate-principles.mjs",
     "test:dsa": "node --test scripts/dsa-runner.test.mjs",
     "test:rw": "node --test scripts/realworld-runner.test.mjs",
     "test:editor": "node --test scripts/editor.test.mjs",

@@ -97,6 +97,16 @@ export default function Quiz({ quiz, onFinish, onCancel, renderAfterActions }) {
           </p>
         )}
         <p className="quiz__prompt">{question.prompt}</p>
+        {question.snippet && (
+          <pre className="quiz__snippet" aria-label="Regex or code under test">
+            {question.snippet}
+          </pre>
+        )}
+        {question.sampleInput != null && question.sampleInput !== "" && (
+          <p className="quiz__sample">
+            Input: <code>{question.sampleInput}</code>
+          </p>
+        )}
 
         <ul className="options">
           {question.options.map((opt) => {
